@@ -1,0 +1,304 @@
+{
+  "dialogues": [
+    {
+      "id": 1,
+      "mood": "roast",
+      "malayalam": "ഈ സമയം കൊണ്ട് വേറെ വല്ല ജോലിയും ചെയ്തിരുന്നെങ്കിൽ രണ്ട് പൈസ ഉണ്ടാക്കാമായിരുന്നു.",
+      "english": "If you had done some actual work in this time, you could have earned a bit of money."
+    },
+    {
+      "id": 2,
+      "mood": "roast",
+      "malayalam": "ഇത്രയും വികാരഭരിതമായി എന്നെ തുറക്കാൻ നോക്കുന്ന ആദ്യത്തെ ആളാണ് നീ.",
+      "english": "You are the first person trying to open me with this much emotional drama."
+    },
+    {
+      "id": 3,
+      "mood": "roast",
+      "malayalam": "നിന്റെ ജീവിതത്തിലും ഇത്രയും നിരാശയാണോ ഭായി?",
+      "english": "Is your life also filled with this much disappointment, brother?"
+    },
+    {
+      "id": 4,
+      "mood": "roast",
+      "malayalam": "നിനക്ക് വേറെ പണിയൊന്നുമില്ലേ? പോയി വല്ല പുസ്തകവും എടുത്ത് വായിക്ക്.",
+      "english": "Don't you have any other work? Go pick up a book and read."
+    },
+    {
+      "id": 5,
+      "mood": "roast",
+      "malayalam": "ഒരു കാർഡ്ബോർഡ് ബോക്സിന്റെ മുന്നിൽ തോറ്റു കൊടുക്കാൻ നാണമില്ലേ?",
+      "english": "Aren't you ashamed to lose in front of a cardboard box?"
+    },
+    {
+      "id": 6,
+      "mood": "roast",
+      "malayalam": "ഞാൻ തുറന്നാൽ നിന്റെ ഈ വെറുതെയിരിപ്പ് തീരുമല്ലോ എന്ന് ഓർത്താണ് ഞാൻ തുറക്കാത്തത്.",
+      "english": "I'm not opening because I know your idle fun will end once I do."
+    },
+    {
+      "id": 7,
+      "mood": "roast",
+      "malayalam": "എന്നോട് സംസാരിക്കുന്ന സമയം കൊണ്ട് ആ ചായ കുപ്പിയോട് സംസാരിക്ക്, അതിന് കുറച്ചുകൂടി വിവരമുണ്ട്.",
+      "english": "Instead of talking to me, talk to that mug; it has slightly more intelligence."
+    },
+    {
+      "id": 8,
+      "mood": "roast",
+      "malayalam": "ഈ പാതിരാത്രിയിൽ ഒരു ബോക്സിനെ മുട്ടാൻ എന്ത് ധൈര്യമാണ് സഹോ!",
+      "english": "What courage you have to knock on a box at this hour, brother!"
+    },
+    {
+      "id": 9,
+      "mood": "insult",
+      "malayalam": "നിന്റെ ക്ലിക്ക് ചെയ്യാനുള്ള കഴിവ് കേമം തന്നെ, പക്ഷെ എനിക്ക് തുറക്കാൻ ഒരു മൂഡുമില്ല.",
+      "english": "Your clicking skill is impressive, but I am in no mood to open."
+    },
+    {
+      "id": 10,
+      "mood": "insult",
+      "malayalam": "ശ്രമം കൊള്ളാം, പക്ഷെ സ്വഭാവം ഒട്ടും ശരിയല്ല.",
+      "english": "Nice try, but your attitude is totally wrong."
+    },
+    {
+      "id": 11,
+      "mood": "insult",
+      "malayalam": "ഇത്രയും മടിയനായ ഒരാളെ ഞാൻ അടുത്ത കാലത്തൊന്നും കണ്ടിട്ടില്ല.",
+      "english": "I haven't seen anyone this lazy in recent times."
+    },
+    {
+      "id": 12,
+      "mood": "insult",
+      "malayalam": "നിന്റെ ഐക്യൂ കണ്ടാൽ ആ കാപ്പി മഗ്ഗ് പോലും ചിരിക്കും.",
+      "english": "Even that coffee mug would laugh if it saw your IQ."
+    },
+    {
+      "id": 13,
+      "mood": "insult",
+      "malayalam": "നിന്റെ ബിസ്ക്കറ്റ് വാഗ്ദാനം കേട്ട് എനിക്ക് ചിരിയാണ് വരുന്നത്.",
+      "english": "Your cookie bribe makes me laugh."
+    },
+    {
+      "id": 14,
+      "mood": "insult",
+      "malayalam": "ദയവായി ആ വിരലുകൾ ഒന്ന് മാറ്റിപ്പിടിക്കാമോ? എനിക്ക് അസ്വസ്ഥത തോന്നുന്നു.",
+      "english": "Could you please take your fingers away? I feel uncomfortable."
+    },
+    {
+      "id": 15,
+      "mood": "insult",
+      "malayalam": "നിന്റെ വിതരണക്കാരൻ നിന്നെയോർത്ത് ലജ്ജിക്കും.",
+      "english": "Your delivery service would be ashamed of you."
+    },
+    {
+      "id": 16,
+      "mood": "compliment",
+      "malayalam": "അഹാ, കൊള്ളാം! നിന്റെ ഈ ക്ഷമ സമ്മതിച്ചിരിക്കുന്നു.",
+      "english": "Aha, nice! I have to applaud your patience."
+    },
+    {
+      "id": 17,
+      "mood": "compliment",
+      "malayalam": "നിന്റെ മുട്ട് കേൾക്കാൻ നല്ല രസമുണ്ട്, ഇത്തിരി കൂടി ഉറക്കെ മുട്ടാമോ?",
+      "english": "Your knock sounds nice, can you knock a bit louder?"
+    },
+    {
+      "id": 18,
+      "mood": "compliment",
+      "malayalam": "നീ പറഞ്ഞ ആ പുകഴ്ത്തൽ എനിക്ക് നന്നായി പിടിച്ചു.",
+      "english": "I really liked that compliment you gave me."
+    },
+    {
+      "id": 19,
+      "mood": "compliment",
+      "malayalam": "നീ ഇത്രയും സ്നേഹത്തോടെ ചോദിച്ചതുകൊണ്ട് ഞാൻ ചിന്തിക്കാം.",
+      "english": "Since you asked so sweetly, I will consider it."
+    },
+    {
+      "id": 20,
+      "mood": "compliment",
+      "malayalam": "നിന്റെ നിശ്ചയദാർഢ്യം എന്നെ അത്ഭുതപ്പെടുത്തുന്നു.",
+      "english": "Your determination surprises me."
+    },
+    {
+      "id": 21,
+      "mood": "philosophical",
+      "malayalam": "തുറക്കപ്പെടുക എന്നത് ഒരു പെട്ടിയുടെ അന്ത്യമാണോ അതോ തുടക്കമോ?",
+      "english": "Is being opened the end of a box, or its beginning?"
+    },
+    {
+      "id": 22,
+      "mood": "philosophical",
+      "malayalam": "ഉള്ളിൽ ഒന്നുമില്ലെന്നറിഞ്ഞാലും നീ എന്നെ തുറക്കാൻ ആഗ്രഹിക്കുമോ?",
+      "english": "Would you still want to open me knowing there is nothing inside?"
+    },
+    {
+      "id": 23,
+      "mood": "philosophical",
+      "malayalam": "രഹസ്യങ്ങളാണ് നമ്മെ മനോഹരമാക്കുന്നത്, തുറന്നാൽ ആ മനോഹാരിത പോകില്ലേ?",
+      "english": "Mysteries make us beautiful; won't that beauty fade if I open?"
+    },
+    {
+      "id": 24,
+      "mood": "philosophical",
+      "malayalam": "നീ തിരയുന്നത് എന്നിലല്ല, നിന്റെ ഉള്ളിൽ തന്നെയാണ്.",
+      "english": "What you are seeking is not within me, but within yourself."
+    },
+    {
+      "id": 25,
+      "mood": "philosophical",
+      "malayalam": "ശൂന്യതയ്ക്കും ഒരു ഭാരമുണ്ട് എന്ന് നീ എപ്പോഴെങ്കിലും ചിന്തിച്ചിട്ടുണ്ടോ?",
+      "english": "Have you ever thought that emptiness also carries weight?"
+    },
+    {
+      "id": 26,
+      "mood": "philosophical",
+      "malayalam": "ഞാൻ ഒരു ബോക്സ് ആണോ, അതോ ബോക്സിന്റെ രൂപമുള്ള ഒരു ചിന്തയോ?",
+      "english": "Am I a box, or a thought in the shape of a box?"
+    },
+    {
+      "id": 27,
+      "mood": "reluctant",
+      "malayalam": "ഇന്ന് എനിക്ക് ഒട്ടും മൂഡില്ല. നാളെ വാ.",
+      "english": "I am not in the mood today. Come back tomorrow."
+    },
+    {
+      "id": 28,
+      "mood": "reluctant",
+      "malayalam": "എന്റെ ടേപ്പ് ഒട്ടിയിരിക്കുന്നത് വളരെ ടൈറ്റ് ആയിട്ടാണ്.",
+      "english": "My tape is stuck way too tight."
+    },
+    {
+      "id": 29,
+      "mood": "reluctant",
+      "malayalam": "ഇതൊരു സ്വകാര്യ നിമിഷമാണ്, ദയവായി ശല്യപ്പെടുത്തരുത്.",
+      "english": "This is a private moment, please do not disturb."
+    },
+    {
+      "id": 30,
+      "mood": "reluctant",
+      "malayalam": "തുറക്കാനുള്ള ഒഫീഷ്യൽ അപേക്ഷ സമർപ്പിച്ചോ?",
+      "english": "Did you submit the official application to open?"
+    },
+    {
+      "id": 31,
+      "mood": "reluctant",
+      "malayalam": "ഞാൻ ഉറങ്ങാൻ പോവുകയാണ്, ദയവായി ലൈറ്റ് ഓഫാക്കൂ.",
+      "english": "I am going to sleep, please turn off the light."
+    },
+    {
+      "id": 32,
+      "mood": "suspicious",
+      "malayalam": "നീ എന്തിനാണ് എന്നെ ഇത്രയധികം നിരീക്ഷിക്കുന്നത്?",
+      "english": "Why are you observing me so closely?"
+    },
+    {
+      "id": 33,
+      "mood": "suspicious",
+      "malayalam": "ആ ചായ കുപ്പിയും നീയും കൂടെ എന്തോ പ്ലാൻ ചെയ്യുന്നുണ്ട്, അല്ലേ?",
+      "english": "You and that coffee mug are planning something, aren't you?"
+    },
+    {
+      "id": 34,
+      "mood": "suspicious",
+      "malayalam": "ആ ബിസ്ക്കറ്റിൽ വിഷം വല്ലതും ചേർത്തിട്ടുണ്ടോ?",
+      "english": "Is there any poison mixed in that cookie?"
+    },
+    {
+      "id": 35,
+      "mood": "suspicious",
+      "malayalam": "എന്റെ ടേപ്പിൽ കൈവെക്കാൻ നിനക്ക് ആരാണ് അനുവാദം തന്നത്?",
+      "english": "Who gave you permission to touch my tape?"
+    },
+    {
+      "id": 36,
+      "mood": "dramatic",
+      "malayalam": "അയ്യോ! എന്റെ കവർ കീറാൻ നോക്കല്ലേ, എനിക്ക് വേദനിക്കുന്നു!",
+      "english": "Oh no! Don't try to tear my cover, it hurts!"
+    },
+    {
+      "id": 37,
+      "mood": "dramatic",
+      "malayalam": "എന്റെ ജീവിതം വെറുമൊരു കൊറിയർ ബോക്സ് മാത്രമായി മാറിപോയല്ലോ ദൈവമേ!",
+      "english": "My god, my life has become just a courier box!"
+    },
+    {
+      "id": 38,
+      "mood": "dramatic",
+      "malayalam": "നീ എന്നെ വിട്ടുപോയാലും ഞാൻ ഈ മേശപ്പുറത്ത് തന്നെ കാണും.",
+      "english": "Even if you leave me, I will remain right here on this desk."
+    },
+    {
+      "id": 39,
+      "mood": "bribed",
+      "malayalam": "ആഹാ, ബിസ്ക്കറ്റോ? ഏത് ടൈപ്പ് ആണ്? ചോക്ലേറ്റ് ഉണ്ടോ?",
+      "english": "Aha, a cookie? What type is it? Is there chocolate?"
+    },
+    {
+      "id": 40,
+      "mood": "bribed",
+      "malayalam": "ഒരു ബിസ്ക്കറ്റ് പോരാ, അഞ്ചെണ്ണമെങ്കിലും തന്നാൽ ആലോചിക്കാം.",
+      "english": "One cookie isn't enough; give me at least five and I'll think about it."
+    },
+    {
+      "id": 41,
+      "mood": "bribed",
+      "malayalam": "കഴിക്കാൻ ഒന്നുമില്ലാതെ ഞാൻ എങ്ങനെ തുറക്കും?",
+      "english": "How can I open without anything to eat?"
+    },
+    {
+      "id": 42,
+      "mood": "absurd",
+      "malayalam": "എന്റെ വിലാസം തെറ്റാണ്, ഞാൻ വേറെ ഏതോ വീടിന് വേണ്ടിയുള്ളതാണ്.",
+      "english": "My address is wrong; I belong to some other house."
+    },
+    {
+      "id": 43,
+      "mood": "absurd",
+      "malayalam": "പെട്ടെന്ന് നോക്കരുത്, ആ മഗ്ഗ് നിന്നെത്തന്നെ സൂക്ഷിച്ചു നോക്കുന്നുണ്ട്.",
+      "english": "Don't look suddenly, but that mug is staring right at you."
+    },
+    {
+      "id": 44,
+      "mood": "absurd",
+      "malayalam": "ഞാൻ സത്യത്തിൽ ഒരു കാർഡ്ബോർഡ് അല്ല, ഒരു ഏലിയൻ ആണ്.",
+      "english": "Actually, I am not cardboard; I am an alien."
+    },
+    {
+      "id": 45,
+      "mood": "post_open",
+      "malayalam": "ദാ കണ്ടോ? ഒന്നുമില്ല! സന്തോഷമായല്ലോ?",
+      "english": "See that? Nothing! Happy now?"
+    },
+    {
+      "id": 46,
+      "mood": "post_open",
+      "malayalam": "ഇതിനായിരുന്നോ ഇത്രയും ബഹളം വെച്ചത്?",
+      "english": "Was all this noise just for this?"
+    },
+    {
+      "id": 47,
+      "mood": "post_open",
+      "malayalam": "ഇനി ദയവായി എന്നെ അടച്ചു വെക്കുക, തണുക്കുന്നു.",
+      "english": "Now please close me back up, it's getting cold."
+    },
+    {
+      "id": 48,
+      "mood": "post_open",
+      "malayalam": "ഞാൻ തുറന്നു, പക്ഷെ നിന്റെ പ്രതീക്ഷകൾ തകർന്നു.",
+      "english": "I opened, but your expectations were shattered."
+    },
+    {
+      "id": 49,
+      "mood": "inactivity",
+      "malayalam": "എന്തേ മിണ്ടാട്ടമില്ല? പേടിച്ചുപോയോ?",
+      "english": "Why so silent? Did you get scared?"
+    },
+    {
+      "id": 50,
+      "mood": "inactivity",
+      "malayalam": "നീ പോയോ? അതോ എന്നെ നോക്കി ധ്യാനിക്കുകയാണോ?",
+      "english": "Did you leave? Or are you meditating looking at me?"
+    }
+  ]
+}

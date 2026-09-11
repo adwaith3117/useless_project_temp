@@ -1,1 +1,2743 @@
+﻿<!DOCTYPE html>
+<html lang="ml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalla Petti.exe</title>
+  <style>
+    /* ==========================================================================
+       WINDOWS XP LUNA THEME & SYSTEM STYLING
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
 
+    body {
+      font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
+      font-size: 11px;
+      color: #000;
+      background: #004E98;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* Windows XP Bliss Wallpaper Background Recreation */
+    #desktop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 30px);
+      background: linear-gradient(to bottom, #1d6bc2 0%, #3e8fe6 35%, #76b7f3 55%, #88c859 60%, #4f9622 75%, #346c14 100%);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Bliss Hills SVG Overlay for authentic feel */
+    .bliss-hills {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 45%;
+      pointer-events: none;
+    }
+
+    /* Desktop Icons */
+    .desktop-icons {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 2;
+    }
+
+    .desktop-icon {
+      width: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      text-align: center;
+      padding: 4px;
+      border: 1px dotted transparent;
+    }
+
+    .desktop-icon:hover {
+      background: rgba(49, 106, 197, 0.25);
+      border-color: rgba(49, 106, 197, 0.6);
+      border-radius: 2px;
+    }
+
+    .desktop-icon.selected {
+      background: rgba(49, 106, 197, 0.45);
+      border-color: #316ac5;
+      border-radius: 2px;
+    }
+
+    .desktop-icon-img {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 4px;
+      filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
+    }
+
+    .desktop-icon-label {
+      color: #fff;
+      font-size: 11px;
+      text-shadow: 1px 1px 2px #000, 0 0 4px #000;
+      word-break: break-word;
+      line-height: 1.2;
+    }
+
+    /* Windows XP Window Container */
+    .xp-window {
+      position: absolute;
+      top: 45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 680px;
+      max-width: 95vw;
+      background: #ECE9D8;
+      border: 3px solid #0055EA;
+      border-top: 3px solid #0055EA;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+      transition: transform 0.05s ease;
+    }
+
+    .xp-window.minimized {
+      display: none;
+    }
+
+    /* Title Bar */
+    .xp-titlebar {
+      height: 30px;
+      background: linear-gradient(to bottom, #0058EE 0%, #3593FF 4%, #288EFF 6%, #0669E6 8%, #0055EA 12%, #0046DE 40%, #0036C8 85%, #0028A8 100%);
+      border-radius: 5px 5px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px 0 8px;
+      color: #FFFFFF;
+      font-weight: bold;
+      font-size: 12px;
+      text-shadow: 1px 1px 1px #0F255E;
+      cursor: move;
+    }
+
+    .xp-titlebar-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .xp-titlebar-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .xp-titlebar-controls {
+      display: flex;
+      gap: 2px;
+    }
+
+    .xp-btn-ctrl {
+      width: 21px;
+      height: 21px;
+      border: 1px solid #FFFFFF;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Marlett', sans-serif;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #FFFFFF;
+      text-shadow: none;
+    }
+
+    .xp-btn-minimize, .xp-btn-maximize {
+      background: linear-gradient(to bottom, #3C8DF0 0%, #2067D2 50%, #1555C0 100%);
+    }
+    .xp-btn-minimize:hover, .xp-btn-maximize:hover {
+      background: linear-gradient(to bottom, #5CA3FF 0%, #3580E8 50%, #246BD5 100%);
+    }
+
+    .xp-btn-close {
+      background: linear-gradient(to bottom, #E86544 0%, #D43916 50%, #B81B00 100%);
+    }
+    .xp-btn-close:hover {
+      background: linear-gradient(to bottom, #FF8060 0%, #EA4822 50%, #D42808 100%);
+    }
+
+    /* Menu Bar */
+    .xp-menubar {
+      background: #ECE9D8;
+      border-bottom: 1px solid #D0CEBF;
+      display: flex;
+      padding: 2px 6px;
+      position: relative;
+    }
+
+    .xp-menu-item {
+      padding: 2px 7px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .xp-menu-item:hover, .xp-menu-item.active {
+      background: #316AC5;
+      color: #FFF;
+    }
+
+    .xp-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #FFF;
+      border: 1px solid #716F64;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      min-width: 170px;
+      z-index: 100;
+      padding: 2px 0;
+    }
+
+    .xp-dropdown.show {
+      display: block;
+    }
+
+    .xp-dropdown-item {
+      padding: 4px 18px 4px 22px;
+      cursor: pointer;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .xp-dropdown-item:hover {
+      background: #316AC5;
+      color: #FFF;
+    }
+
+    .xp-dropdown-item.checked::before {
+      content: 'âœ“';
+      position: absolute;
+      left: 6px;
+      font-weight: bold;
+    }
+
+    .xp-dropdown-divider {
+      height: 1px;
+      background: #D0CEBF;
+      margin: 3px 1px;
+    }
+
+    /* Top Sub-Bar with Language & Fullscreen */
+    .xp-subbar {
+      background: #ECE9D8;
+      border-bottom: 1px solid #919B9C;
+      padding: 4px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .xp-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #444;
+    }
+
+    .subbar-buttons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lang-toggle-btn, .fullscreen-toggle-btn {
+      background: linear-gradient(to bottom, #FFFFFF 0%, #ECE9D8 100%);
+      border: 1px solid #7F9DB9;
+      border-radius: 3px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-family: inherit;
+      cursor: pointer;
+      font-weight: bold;
+      color: #003399;
+    }
+
+    .lang-toggle-btn:hover, .fullscreen-toggle-btn:hover {
+      border-color: #316AC5;
+      background: linear-gradient(to bottom, #F5F4EC 0%, #D8D4C2 100%);
+    }
+
+    /* Main Content Area */
+    .xp-content {
+      background: #ECE9D8;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Inner Display Panel (Beveled Inset Viewport) */
+    .xp-viewport {
+      background: #FFFFFF;
+      border: 2px solid;
+      border-color: #7F9DB9 #D4D0C8 #D4D0C8 #7F9DB9;
+      border-radius: 2px;
+      height: 330px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      background: radial-gradient(circle at 50% 30%, #F5FAFF 0%, #D6E4F0 70%, #AEC5DE 100%);
+    }
+
+    /* Retro Grid & Scanline Subtle Layer */
+    .viewport-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+    }
+
+    /* Floor Shadow / Wooden Desk */
+    .viewport-desk {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 75px;
+      background: linear-gradient(to bottom, #BCA488 0%, #8A6E50 40%, #6E5336 100%);
+      border-top: 3px solid #D6C2A5;
+      box-shadow: inset 0 3px 5px rgba(0,0,0,0.25);
+    }
+
+    /* Dialogue Speech Bubble */
+    .speech-bubble-container {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 86%;
+      max-width: 520px;
+      z-index: 20;
+      pointer-events: none;
+      animation: bubblePop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes bubblePop {
+      0% { transform: translateX(-50%) scale(0.85); opacity: 0; }
+      100% { transform: translateX(-50%) scale(1); opacity: 1; }
+    }
+
+    .speech-bubble {
+      background: #FFFFE1;
+      border: 1px solid #000000;
+      border-radius: 5px;
+      padding: 10px 14px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #000;
+      text-align: center;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: #FFFFE1 transparent;
+      display: block;
+      width: 0;
+    }
+
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 11px 11px 0;
+      border-style: solid;
+      border-color: #000 transparent;
+      display: block;
+      width: 0;
+    }
+
+    /* ==========================================================================
+       MAIN CHARACTER: SENTIENT CARDBOARD BOX
+       ========================================================================== */
+    .box-stage {
+      position: relative;
+      width: 220px;
+      height: 180px;
+      margin-bottom: 25px;
+      z-index: 10;
+      cursor: pointer;
+      transform-origin: bottom center;
+      transition: transform 0.15s ease-out;
+    }
+
+    .box-stage:hover .box-body {
+      filter: brightness(1.03);
+    }
+
+    .box-shadow {
+      position: absolute;
+      bottom: -15px;
+      left: 10px;
+      width: 200px;
+      height: 25px;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 70%);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .box-body {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #C49A62;
+      background-image: 
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 4px),
+        linear-gradient(to right, #B2864C 0%, #C49A62 15%, #D4A870 70%, #B2864C 100%);
+      border: 3px solid #6E4E25;
+      border-radius: 3px;
+      box-shadow: inset 0 0 15px rgba(110, 78, 37, 0.4), 0 6px 12px rgba(0,0,0,0.25);
+      overflow: hidden;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Corrugated Seam Lines & Fragile Stamp */
+    .box-seam-center {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: rgba(80, 50, 20, 0.3);
+      transform: translateX(-50%);
+    }
+
+    .box-barcode {
+      position: absolute;
+      bottom: 8px;
+      right: 12px;
+      width: 42px;
+      height: 24px;
+      background: #FFF;
+      padding: 2px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0.8;
+      border: 1px solid #888;
+    }
+
+    .barcode-bars {
+      display: flex;
+      height: 14px;
+      gap: 1px;
+      background: repeating-linear-gradient(90deg, #000 0, #000 2px, transparent 2px, transparent 3px, #000 3px, #000 4px, transparent 4px, transparent 6px);
+    }
+
+    .barcode-text {
+      font-size: 6px;
+      font-family: monospace;
+      text-align: center;
+      color: #000;
+    }
+
+    .box-fragile-stamp {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      border: 2px solid #A82424;
+      color: #A82424;
+      font-weight: bold;
+      font-size: 8px;
+      padding: 1px 4px;
+      transform: rotate(-12deg);
+      opacity: 0.7;
+      letter-spacing: 0.5px;
+    }
+
+    /* Shipping Tape */
+    .shipping-tape-horizontal {
+      position: absolute;
+      top: 46%;
+      left: -10%;
+      width: 120%;
+      height: 26px;
+      background: rgba(220, 180, 110, 0.65);
+      border-top: 1px dashed rgba(160, 120, 60, 0.6);
+      border-bottom: 1px dashed rgba(160, 120, 60, 0.6);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .shipping-tape-vertical {
+      position: absolute;
+      top: -10%;
+      left: 44%;
+      width: 28px;
+      height: 120%;
+      background: rgba(220, 180, 110, 0.65);
+      border-left: 1px dashed rgba(160, 120, 60, 0.6);
+      border-right: 1px dashed rgba(160, 120, 60, 0.6);
+      box-shadow: 1px 0 3px rgba(0,0,0,0.15);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Lids (For opening animation) */
+    .lid-left, .lid-right {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 40px;
+      background: linear-gradient(to bottom, #D8AE76, #B98C52);
+      border: 3px solid #6E4E25;
+      z-index: 6;
+      transform-origin: top;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .lid-left {
+      left: 0;
+      border-right: 1px solid #5A3F1E;
+    }
+
+    .lid-right {
+      right: 0;
+      border-left: 1px solid #5A3F1E;
+    }
+
+    /* Internal Glow & Void */
+    .box-interior-void {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #080502;
+      z-index: 5;
+      display: none;
+      box-shadow: inset 0 0 30px #000;
+    }
+
+    .box-golden-light {
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      width: 260px;
+      height: 220px;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 230, 130, 0.9) 0%, rgba(255, 180, 50, 0.6) 40%, rgba(255, 140, 0, 0) 70%);
+      z-index: 8;
+      display: none;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: lightPulse 0.5s infinite alternate;
+    }
+
+    @keyframes lightPulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      100% { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* Eyes & Eyebrows (The Sentient Face) */
+    .box-face {
+      position: relative;
+      z-index: 7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-top: 15px;
+    }
+
+    .eyebrows-row {
+      display: flex;
+      gap: 36px;
+      width: 110px;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .eyebrow {
+      width: 32px;
+      height: 6px;
+      background: #3B240B;
+      border-radius: 3px;
+      transition: transform 0.25s ease;
+    }
+
+    .eyebrow.left {
+      transform: rotate(0deg);
+    }
+    .eyebrow.right {
+      transform: rotate(0deg);
+    }
+
+    .eyes-row {
+      display: flex;
+      gap: 30px;
+      width: 120px;
+      justify-content: center;
+    }
+
+    .eye {
+      width: 28px;
+      height: 34px;
+      background: #FFFFFF;
+      border: 3px solid #3B240B;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .pupil {
+      position: absolute;
+      top: 8px;
+      left: 6px;
+      width: 14px;
+      height: 14px;
+      background: #111;
+      border-radius: 50%;
+      transition: transform 0.1s ease;
+    }
+
+    .pupil::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 4px;
+      height: 4px;
+      background: #FFF;
+      border-radius: 50%;
+    }
+
+    .eyelid-top {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #C49A62;
+      border-bottom: 2px solid #3B240B;
+      transition: top 0.1s ease;
+    }
+
+    /* Face Mood Expressions */
+    .mood-suspicious .eyebrow.left { transform: translateY(4px) rotate(18deg); }
+    .mood-suspicious .eyebrow.right { transform: translateY(1px) rotate(-8deg); }
+    .mood-suspicious .eye { height: 20px; margin-top: 7px; }
+
+    .mood-angry .eyebrow.left { transform: translateY(5px) rotate(25deg); }
+    .mood-angry .eyebrow.right { transform: translateY(5px) rotate(-25deg); }
+
+    .mood-dramatic .eyebrow.left { transform: translateY(-4px) rotate(-22deg); }
+    .mood-dramatic .eyebrow.right { transform: translateY(22deg); }
+    .mood-dramatic .eye { height: 36px; }
+
+    .mood-philosophical .eyebrow.left { transform: translateY(-3px) rotate(10deg); }
+    .mood-philosophical .eyebrow.right { transform: translateY(0px) rotate(0deg); }
+
+    .mood-bribed .eyebrow.left { transform: translateY(-2px) rotate(-10deg); }
+    .mood-bribed .eyebrow.right { transform: translateY(10deg); }
+
+    .blinking .eyelid-top {
+      top: 0% !important;
+    }
+
+    /* Box Open States */
+    .box-stage.opening {
+      animation: boxVibrate 0.4s ease-in-out infinite;
+    }
+
+    @keyframes boxVibrate {
+      0% { transform: translateX(0) rotate(0deg); }
+      25% { transform: translateX(-3px) rotate(-1.5deg); }
+      75% { transform: translateX(3px) rotate(1.5deg); }
+      100% { transform: translateX(0) rotate(0deg); }
+    }
+
+    .box-stage.opened .lid-left {
+      transform: rotateX(130deg) translateY(-8px);
+    }
+    .box-stage.opened .lid-right {
+      transform: rotateX(130deg) translateY(-8px);
+    }
+    .box-stage.opened .box-interior-void {
+      display: block;
+    }
+    .box-stage.opened .box-golden-light {
+      display: block;
+    }
+    .box-stage.opened .box-face {
+      opacity: 0.2;
+    }
+
+    /* ==========================================================================
+       SECONDARY CHARACTER: COFFEE MUG
+       ========================================================================== */
+    .mug-stage {
+      position: absolute;
+      bottom: 25px;
+      right: 45px;
+      width: 65px;
+      height: 70px;
+      z-index: 12;
+      cursor: pointer;
+      transition: transform 0.3s ease, right 0.4s ease;
+    }
+
+    .mug-shadow {
+      position: absolute;
+      bottom: -4px;
+      left: 4px;
+      width: 58px;
+      height: 12px;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 70%);
+      border-radius: 50%;
+    }
+
+    .mug-body {
+      position: absolute;
+      top: 15px;
+      left: 10px;
+      width: 44px;
+      height: 52px;
+      background: linear-gradient(to right, #E0E0E0 0%, #FFFFFF 30%, #F0F0F0 70%, #CCCCCC 100%);
+      border: 2px solid #888888;
+      border-radius: 2px 2px 10px 10px;
+      box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mug-handle {
+      position: absolute;
+      top: 22px;
+      right: 0px;
+      width: 16px;
+      height: 32px;
+      border: 3px solid #888888;
+      border-left: none;
+      border-radius: 0 10px 10px 0;
+      background: transparent;
+    }
+
+    .mug-label {
+      font-size: 8px;
+      font-weight: bold;
+      color: #0055EA;
+      transform: rotate(-10deg);
+      border: 1px dashed #0055EA;
+      padding: 1px 2px;
+    }
+
+    /* Sunglasses on Mug (Random Feature) */
+    .mug-sunglasses {
+      position: absolute;
+      top: 26px;
+      left: 12px;
+      width: 40px;
+      height: 14px;
+      z-index: 15;
+      display: none;
+    }
+
+    .mug-sunglasses.active {
+      display: block;
+      animation: dropShades 0.5s ease;
+    }
+
+    @keyframes dropShades {
+      0% { transform: translateY(-40px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Coffee Steam Animation */
+    .steam-particle {
+      position: absolute;
+      top: 0;
+      left: 26px;
+      width: 8px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      filter: blur(2px);
+      animation: steamRise 2s infinite ease-out;
+    }
+
+    .steam-particle:nth-child(2) {
+      animation-delay: 0.7s;
+      left: 32px;
+    }
+
+    @keyframes steamRise {
+      0% { transform: translateY(12px) scale(0.6); opacity: 0.8; }
+      50% { transform: translateY(-6px) scale(1.2) translateX(4px); opacity: 0.5; }
+      100% { transform: translateY(-24px) scale(1.8) translateX(-3px); opacity: 0; }
+    }
+
+    /* Mug Speech Bubble */
+    .mug-speech-bubble {
+      position: absolute;
+      bottom: 85px;
+      right: 15px;
+      background: #FFFFFF;
+      border: 1px solid #716F64;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 11px;
+      color: #333;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      max-width: 170px;
+      z-index: 25;
+      display: none;
+      animation: bubblePop 0.2s ease-out;
+    }
+
+    .mug-speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 30px;
+      border-width: 6px 6px 0;
+      border-style: solid;
+      border-color: #FFFFFF transparent;
+    }
+
+    /* ==========================================================================
+       USER ACTIONS (XP BUTTONS)
+       ========================================================================== */
+    .xp-actions-panel {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 2px 0;
+    }
+
+    .xp-btn {
+      font-family: 'Tahoma', 'Segoe UI', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: normal;
+      color: #000000;
+      background: linear-gradient(to bottom, #FFFFFF 0%, #ECE9D8 45%, #D8D4C0 50%, #ECE9D8 100%);
+      border: 1px solid #003C74;
+      border-radius: 3px;
+      box-shadow: inset 1px 1px 0 #FFF, inset -1px -1px 0 #D8D4C0, 0 1px 2px rgba(0,0,0,0.15);
+      padding: 6px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      outline: none;
+      transition: all 0.05s ease;
+      height: 32px;
+    }
+
+    .xp-btn:hover {
+      background: linear-gradient(to bottom, #FFF 0%, #F5F4EC 45%, #E5E2D0 50%, #F5F4EC 100%);
+      box-shadow: inset 0 0 2px #3C7FB1, 0 1px 2px rgba(0,0,0,0.2);
+      border-color: #3C7FB1;
+    }
+
+    .xp-btn:active {
+      background: linear-gradient(to bottom, #D8D4C0 0%, #ECE9D8 100%);
+      box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+      padding-top: 7px;
+      padding-bottom: 5px;
+    }
+
+    .xp-btn-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ==========================================================================
+       STATUS BAR
+       ========================================================================== */
+    .xp-statusbar {
+      background: #ECE9D8;
+      border-top: 1px solid #919B9C;
+      display: flex;
+      padding: 2px 4px;
+      gap: 4px;
+      height: 22px;
+      align-items: center;
+    }
+
+    .status-panel {
+      border: 1px solid;
+      border-color: #919B9C #FFF #FFF #919B9C;
+      padding: 1px 6px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      font-size: 11px;
+      color: #333;
+    }
+
+    .status-main {
+      flex: 1;
+    }
+
+    .status-info {
+      width: 140px;
+      justify-content: center;
+    }
+
+    .status-mode {
+      width: 90px;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       WINDOWS XP TASKBAR & START MENU
+       ========================================================================== */
+    #taskbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 30px;
+      background: linear-gradient(to bottom, #1F2F86 0%, #315BD7 3%, #225AD9 6%, #245DDA 10%, #1941A5 80%, #1941A5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 500;
+      box-shadow: 0 -1px 3px rgba(0,0,0,0.3);
+    }
+
+    .start-btn {
+      height: 30px;
+      padding: 0 14px 0 10px;
+      background: linear-gradient(to bottom, #388E3C 0%, #4CAF50 10%, #388E3C 50%, #2E7D32 100%);
+      border: none;
+      border-radius: 0 8px 8px 0;
+      box-shadow: inset 1px 1px 1px rgba(255,255,255,0.6), 2px 0 5px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #FFF;
+      font-weight: bold;
+      font-style: italic;
+      font-size: 14px;
+      text-shadow: 1px 1px 2px #1B5E20;
+      cursor: pointer;
+    }
+
+    .start-btn:hover {
+      background: linear-gradient(to bottom, #43A047 0%, #66BB6A 10%, #43A047 50%, #388E3C 100%);
+    }
+
+    .start-btn:active {
+      background: linear-gradient(to bottom, #2E7D32 0%, #388E3C 100%);
+      box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6);
+    }
+
+    .task-items {
+      display: flex;
+      flex: 1;
+      padding: 0 8px;
+      gap: 4px;
+    }
+
+    .task-item {
+      height: 24px;
+      max-width: 180px;
+      min-width: 140px;
+      background: linear-gradient(to bottom, #3C8DF0 0%, #1E52B7 60%, #153C8D 100%);
+      border: 1px solid #102A6B;
+      border-radius: 2px;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      padding: 0 6px;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,0.4);
+    }
+
+    .task-item.active {
+      background: linear-gradient(to bottom, #193C8D 0%, #122C68 100%);
+      box-shadow: inset 1px 1px 2px #000;
+    }
+
+    .system-tray {
+      height: 100%;
+      background: linear-gradient(to bottom, #0C7EDB 0%, #1793F2 15%, #0F66B6 85%, #0B559C 100%);
+      border-left: 1px solid #084078;
+      box-shadow: inset 1px 0 1px rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 8px;
+      color: #FFF;
+      font-size: 11px;
+    }
+
+    .tray-clock {
+      color: #FFF;
+      font-size: 11px;
+    }
+
+    /* Start Menu */
+    .start-menu {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      width: 280px;
+      background: #FFF;
+      border: 2px solid #0055EA;
+      border-radius: 6px 6px 0 0;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+      z-index: 600;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .start-menu-header {
+      height: 48px;
+      background: linear-gradient(to bottom, #0055EA 0%, #2B7DF2 50%, #0046DE 100%);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 10px;
+      color: #FFF;
+      font-weight: bold;
+      font-size: 13px;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border: 2px solid #FFF;
+      border-radius: 3px;
+      background: #D8A66C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .start-menu-body {
+      display: flex;
+      background: #FFF;
+      min-height: 180px;
+    }
+
+    .start-menu-left {
+      flex: 1;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .start-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .start-menu-item:hover {
+      background: #316AC5;
+      color: #FFF;
+    }
+
+    .start-menu-footer {
+      height: 36px;
+      background: linear-gradient(to bottom, #3C8DF0 0%, #2067D2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 10px;
+      gap: 10px;
+    }
+
+    .power-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #FFF;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    /* ==========================================================================
+       XP NOTIFICATION BALLOON & ERROR MODALS
+       ========================================================================== */
+    .xp-balloon {
+      position: absolute;
+      bottom: 40px;
+      right: 15px;
+      width: 260px;
+      background: #FFFFE1;
+      border: 1px solid #000000;
+      border-radius: 6px;
+      padding: 8px 10px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: none;
+      animation: balloonSlide 0.3s ease-out;
+    }
+
+    @keyframes balloonSlide {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .xp-balloon-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 4px;
+      font-size: 11px;
+    }
+
+    .xp-balloon-close {
+      cursor: pointer;
+      font-weight: bold;
+      color: #777;
+    }
+    .xp-balloon-close:hover { color: #000; }
+
+    .xp-balloon-body {
+      font-size: 11px;
+      line-height: 1.35;
+      color: #222;
+    }
+
+    /* XP Modal Dialogs (System Warning / Error / About) */
+    .xp-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .xp-dialog {
+      width: 380px;
+      background: #ECE9D8;
+      border: 3px solid #0055EA;
+      border-radius: 6px 6px 0 0;
+      box-shadow: 3px 3px 12px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .xp-dialog-body {
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .xp-dialog-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .xp-dialog-text {
+      font-size: 11px;
+      line-height: 1.45;
+      color: #000;
+      white-space: pre-line;
+    }
+
+    .xp-dialog-buttons {
+      background: #ECE9D8;
+      padding: 10px 16px 14px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .xp-dialog-btn {
+      min-width: 75px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-family: inherit;
+      background: linear-gradient(to bottom, #FFFFFF 0%, #ECE9D8 45%, #D8D4C0 50%, #ECE9D8 100%);
+      border: 1px solid #003C74;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .xp-dialog-btn:hover {
+      border-color: #3C7FB1;
+    }
+    .xp-dialog-btn:active {
+      background: #D8D4C0;
+    }
+
+    /* Screen Flicker Effect */
+    .screen-flicker {
+      animation: flickerAnim 0.15s ease 2;
+    }
+
+    @keyframes flickerAnim {
+      0% { opacity: 1; filter: invert(0); }
+      50% { opacity: 0.8; filter: invert(0.2) contrast(1.5); }
+      100% { opacity: 1; filter: invert(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DESKTOP BACKGROUND -->
+  <div id="desktop">
+    <!-- SVG Hills (Bliss Wallpaper Vibe) -->
+    <svg class="bliss-hills" viewBox="0 0 1000 400" preserveAspectRatio="none">
+      <path d="M0,220 C200,160 380,280 600,210 C800,150 920,220 1000,180 L1000,400 L0,400 Z" fill="#4B9A2A" opacity="0.8"/>
+      <path d="M0,260 C250,190 450,310 700,240 C850,190 950,260 1000,230 L1000,400 L0,400 Z" fill="#3D8220"/>
+      <path d="M0,310 C300,240 550,340 800,280 L1000,320 L1000,400 L0,400 Z" fill="#2E6616"/>
+    </svg>
+
+    <!-- Desktop Icons -->
+    <div class="desktop-icons">
+      <div class="desktop-icon" onclick="selectDesktopIcon(this)" ondblclick="restoreWindow()">
+        <svg class="desktop-icon-img" viewBox="0 0 32 32">
+          <rect x="2" y="4" width="28" height="20" rx="2" fill="#E6E6E6" stroke="#555" stroke-width="1.5"/>
+          <rect x="5" y="7" width="22" height="14" fill="#0055EA"/>
+          <path d="M12 24 L10 29 L22 29 L20 24 Z" fill="#999" stroke="#555" stroke-width="1"/>
+        </svg>
+        <span class="desktop-icon-label">My Computer</span>
+      </div>
+
+      <div class="desktop-icon selected" onclick="selectDesktopIcon(this)" ondblclick="restoreWindow()">
+        <svg class="desktop-icon-img" viewBox="0 0 32 32">
+          <rect x="4" y="6" width="24" height="22" fill="#C49A62" stroke="#6E4E25" stroke-width="1.5"/>
+          <path d="M4 6 L16 12 L28 6" stroke="#6E4E25" stroke-width="1.5" fill="none"/>
+          <line x1="16" y1="12" x2="16" y2="28" stroke="#6E4E25" stroke-width="1.5"/>
+          <rect x="13" y="6" width="6" height="22" fill="rgba(240,210,140,0.7)"/>
+        </svg>
+        <span class="desktop-icon-label">Kalla Petti.exe</span>
+      </div>
+
+      <div class="desktop-icon" onclick="selectDesktopIcon(this)" ondblclick="openMugAdvice()">
+        <svg class="desktop-icon-img" viewBox="0 0 32 32">
+          <rect x="6" y="8" width="16" height="18" rx="3" fill="#FFFFFF" stroke="#666" stroke-width="1.5"/>
+          <path d="M22 12 C26 12 26 22 22 22" fill="none" stroke="#666" stroke-width="2"/>
+          <path d="M10 5 Q12 2 14 5" stroke="#BBB" fill="none" stroke-width="1.5"/>
+        </svg>
+        <span class="desktop-icon-label">Mug.exe</span>
+      </div>
+
+      <div class="desktop-icon" onclick="selectDesktopIcon(this)">
+        <svg class="desktop-icon-img" viewBox="0 0 32 32">
+          <path d="M8 8 L24 8 L22 28 L10 28 Z" fill="#DDD" stroke="#555" stroke-width="1.5"/>
+          <path d="M6 6 L26 6" stroke="#333" stroke-width="2"/>
+          <path d="M12 12 L12 24 M16 12 L16 24 M20 12 L20 24" stroke="#888" stroke-width="1.5"/>
+        </svg>
+        <span class="desktop-icon-label">Recycle Bin</span>
+      </div>
+    </div>
+
+    <!-- MAIN WINDOW -->
+    <div class="xp-window" id="mainWindow">
+      <!-- Title Bar -->
+      <div class="xp-titlebar" id="titleBar">
+        <div class="xp-titlebar-title">
+          <svg class="xp-titlebar-icon" viewBox="0 0 16 16">
+            <rect x="2" y="2" width="12" height="12" fill="#C49A62" stroke="#4A3215" stroke-width="1"/>
+            <line x1="8" y1="2" x2="8" y2="14" stroke="#4A3215"/>
+          </svg>
+          <span>Kalla Petti.exe</span>
+        </div>
+        <div class="xp-titlebar-controls">
+          <div class="xp-btn-ctrl xp-btn-minimize" onclick="minimizeWindow()" title="Minimize">_</div>
+          <div class="xp-btn-ctrl xp-btn-maximize" onclick="toggleFullScreen()" title="Full Screen (Maximize)">â–¡</div>
+          <div class="xp-btn-ctrl xp-btn-close" onclick="showExitPrompt()" title="Close">âœ•</div>
+        </div>
+      </div>
+
+      <!-- Menu Bar -->
+      <div class="xp-menubar">
+        <!-- File Menu -->
+        <div class="xp-menu-item" onclick="toggleMenu('fileMenu')">
+          <u>F</u>ile
+          <div class="xp-dropdown" id="fileMenu">
+            <div class="xp-dropdown-item" onclick="toggleLanguage()">
+              <span id="menuLangLabel">Language: &#3374;&#3378;&#3375;&#3390;&#3379;&#3330; (Malayalam)</span>
+            </div>
+            <div class="xp-dropdown-item" onclick="toggleFullScreen()">
+              <span>Full Screen Mode (F11)</span>
+            </div>
+            <div class="xp-dropdown-item checked" id="menuAudioItem" onclick="toggleAudioMute()">
+              Sound Effects
+            </div>
+            <div class="xp-dropdown-divider"></div>
+            <div class="xp-dropdown-item" onclick="showExitPrompt()">
+              <u>E</u>xit
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions Menu -->
+        <div class="xp-menu-item" onclick="toggleMenu('actionsMenu')">
+          <u>A</u>ctions
+          <div class="xp-dropdown" id="actionsMenu">
+            <div class="xp-dropdown-item" onclick="triggerKnock()">Knock on Box</div>
+            <div class="xp-dropdown-item" onclick="triggerCompliment()">Compliment Box</div>
+            <div class="xp-dropdown-item" onclick="triggerOfferCookie()">Offer Cookie</div>
+            <div class="xp-dropdown-item" onclick="triggerAskMug()">Consult Coffee Mug</div>
+          </div>
+        </div>
+
+        <!-- Help Menu -->
+        <div class="xp-menu-item" onclick="toggleMenu('helpMenu')">
+          <u>H</u>elp
+          <div class="xp-dropdown" id="helpMenu">
+            <div class="xp-dropdown-item" onclick="showAboutDialog()">About Kalla Petti...</div>
+            <div class="xp-dropdown-item" onclick="showPurposeDialog()">Why Does This Exist?</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-Bar / Tool Ribbon -->
+      <div class="xp-subbar">
+        <div class="xp-badge">
+          <span>&#128230; Sentient Unit #2004</span>
+          <span style="color:#888;">|</span>
+          <span id="activeMoodBadge">Mood: Observing</span>
+        </div>
+        <div class="subbar-buttons">
+          <button class="fullscreen-toggle-btn" onclick="toggleFullScreen()" title="Toggle Full Screen View">
+            &#9974; Full Screen
+          </button>
+          <button class="lang-toggle-btn" onclick="toggleLanguage()" id="langToggleBtn" title="Toggle Malayalam / English">
+            &#127760; Language: &#3374;&#3378;&#3375;&#3390;&#3379;&#3330; (Malayalam)
+          </button>
+        </div>
+      </div>
+
+      <!-- Content Viewport -->
+      <div class="xp-content">
+        <div class="xp-viewport" id="viewport">
+          <div class="viewport-grid"></div>
+
+          <!-- Dialogue Speech Bubble -->
+          <div class="speech-bubble-container" id="speechContainer">
+            <div class="speech-bubble" id="speechText"></div>
+          </div>
+
+          <!-- The Sentient Box Stage -->
+          <div class="box-stage" id="boxStage" onclick="handleDirectBoxClick()">
+            <div class="box-shadow"></div>
+            <div class="box-golden-light" id="boxLight"></div>
+
+            <div class="box-body">
+              <!-- Internal Void -->
+              <div class="box-interior-void"></div>
+
+              <!-- Lids for Opening -->
+              <div class="lid-left" id="lidLeft"></div>
+              <div class="lid-right" id="lidRight"></div>
+
+              <!-- Corrugated Details -->
+              <div class="box-seam-center"></div>
+              <div class="box-fragile-stamp">FRAGILE</div>
+              <div class="shipping-tape-horizontal"></div>
+              <div class="shipping-tape-vertical"></div>
+
+              <div class="box-barcode">
+                <div class="barcode-bars"></div>
+                <div class="barcode-text">KP-2004</div>
+              </div>
+
+              <!-- Sentient Face -->
+              <div class="box-face" id="boxFace">
+                <div class="eyebrows-row">
+                  <div class="eyebrow left" id="eyebrowL"></div>
+                  <div class="eyebrow right" id="eyebrowR"></div>
+                </div>
+                <div class="eyes-row">
+                  <div class="eye" id="eyeL">
+                    <div class="pupil" id="pupilL"></div>
+                    <div class="eyelid-top"></div>
+                  </div>
+                  <div class="eye" id="eyeR">
+                    <div class="pupil" id="pupilR"></div>
+                    <div class="eyelid-top"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Supporting Character: Coffee Mug -->
+          <div class="mug-stage" id="mugStage" onclick="triggerAskMug()" title="Click to ask the mug">
+            <div class="mug-shadow"></div>
+            <div class="steam-particle"></div>
+            <div class="steam-particle"></div>
+
+            <div class="mug-body">
+              <span class="mug-label">XP</span>
+            </div>
+            <div class="mug-handle"></div>
+
+            <!-- Mug Sunglasses SVG (Random Chaotic Event) -->
+            <svg class="mug-sunglasses" id="mugGlasses" viewBox="0 0 40 14">
+              <rect x="2" y="2" width="16" height="10" fill="#000" rx="1"/>
+              <rect x="22" y="2" width="16" height="10" fill="#000" rx="1"/>
+              <rect x="16" y="4" width="8" height="3" fill="#000"/>
+              <line x1="0" y1="4" x2="4" y2="4" stroke="#000" stroke-width="2"/>
+              <line x1="36" y1="4" x2="40" y2="4" stroke="#000" stroke-width="2"/>
+              <rect x="5" y="4" width="4" height="2" fill="#FFF"/>
+              <rect x="25" y="4" width="4" height="2" fill="#FFF"/>
+            </svg>
+          </div>
+
+          <!-- Mug Speech Bubble -->
+          <div class="mug-speech-bubble" id="mugSpeech"></div>
+
+          <!-- Wooden Desk Base -->
+          <div class="viewport-desk"></div>
+        </div>
+
+        <!-- Action Buttons (XP Controls) -->
+        <div class="xp-actions-panel">
+          <button class="xp-btn" onclick="triggerKnock()">
+            <svg class="xp-btn-icon" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="6" fill="#D49A62" stroke="#5A3A10"/>
+              <path d="M5 8 L11 8" stroke="#5A3A10" stroke-width="1.5"/>
+            </svg>
+            <span>Knock</span>
+          </button>
+
+          <button class="xp-btn" onclick="triggerCompliment()">
+            <svg class="xp-btn-icon" viewBox="0 0 16 16">
+              <path d="M8 2 L10 6 L14 7 L11 10 L12 14 L8 12 L4 14 L5 10 L2 7 L6 6 Z" fill="#F4C430" stroke="#B8860B"/>
+            </svg>
+            <span>Compliment</span>
+          </button>
+
+          <button class="xp-btn" onclick="triggerOfferCookie()">
+            <svg class="xp-btn-icon" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="6" fill="#C28A4B" stroke="#683F16"/>
+              <circle cx="6" cy="6" r="1" fill="#422509"/>
+              <circle cx="10" cy="7" r="1.2" fill="#422509"/>
+              <circle cx="7" cy="10" r="1" fill="#422509"/>
+            </svg>
+            <span>Offer Cookie</span>
+          </button>
+
+          <button class="xp-btn" onclick="triggerAskMug()">
+            <svg class="xp-btn-icon" viewBox="0 0 16 16">
+              <rect x="3" y="4" width="8" height="9" fill="#FFF" stroke="#444"/>
+              <path d="M11 6 C13 6 13 11 11 11" fill="none" stroke="#444" stroke-width="1.2"/>
+            </svg>
+            <span>Ask Mug</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="xp-statusbar">
+        <div class="status-panel status-main" id="statusMessage">Status: Ready. Waiting for box interaction.</div>
+        <div class="status-panel status-info" id="statusObject">Subject: Cardboard</div>
+        <div class="status-panel status-mode">XP Luna</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WINDOWS XP TASKBAR -->
+  <div id="taskbar">
+    <button class="start-btn" onclick="toggleStartMenu()">
+      <svg width="18" height="18" viewBox="0 0 18 18">
+        <path d="M1 3 L7 2 L7 8 L1 8 Z" fill="#F25022"/>
+        <path d="M9 2 L16 1 L16 8 L9 8 Z" fill="#7FBA00"/>
+        <path d="M1 9 L7 9 L7 15 L1 14 Z" fill="#00A4EF"/>
+        <path d="M9 9 L16 9 L16 16 L9 15 Z" fill="#FFB900"/>
+      </svg>
+      start
+    </button>
+
+    <div class="task-items">
+      <div class="task-item active" id="taskbarItem" onclick="toggleMinimizeFromTaskbar()">
+        <svg width="14" height="14" viewBox="0 0 16 16">
+          <rect x="2" y="2" width="12" height="12" fill="#C49A62" stroke="#FFF" stroke-width="1"/>
+        </svg>
+        <span>Kalla Petti.exe</span>
+      </div>
+    </div>
+
+    <div class="system-tray">
+      <svg width="14" height="14" viewBox="0 0 16 16" style="cursor:pointer;" onclick="toggleAudioMute()" id="trayVolumeIcon">
+        <path d="M2 5 L5 5 L9 2 L9 14 L5 11 L2 11 Z" fill="#FFF"/>
+        <path d="M11 5 C13 7 13 9 11 11" stroke="#FFF" fill="none" stroke-width="1.5"/>
+      </svg>
+      <div class="tray-clock" id="trayClock">12:00 PM</div>
+    </div>
+  </div>
+
+  <!-- START MENU POPUP -->
+  <div class="start-menu" id="startMenu">
+    <div class="start-menu-header">
+      <div class="user-avatar">&#128230;</div>
+      <span>Administrator</span>
+    </div>
+    <div class="start-menu-body">
+      <div class="start-menu-left">
+        <div class="start-menu-item" onclick="restoreWindow(); toggleStartMenu();">
+          <span>&#128230;</span>
+          <b>Kalla Petti Utility</b>
+        </div>
+        <div class="start-menu-item" onclick="toggleFullScreen(); toggleStartMenu();">
+          <span>&#9974;</span>
+          <span>Full Screen Mode</span>
+        </div>
+        <div class="start-menu-item" onclick="triggerAskMug(); toggleStartMenu();">
+          <span>&#9749;</span>
+          <span>Mug Advice Console</span>
+        </div>
+        <div class="start-menu-item" onclick="showAboutDialog(); toggleStartMenu();">
+          <span>&#10067;</span>
+          <span>About Kalla Petti</span>
+        </div>
+        <div class="start-menu-item" onclick="triggerFakeUpdate(); toggleStartMenu();">
+          <span>&#128260;</span>
+          <span>Windows Update</span>
+        </div>
+      </div>
+    </div>
+    <div class="start-menu-footer">
+      <div class="power-btn" onclick="showExitPrompt(); toggleStartMenu();">
+        <span>&#9115;</span>
+        <span>Turn Off Box</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- XP NOTIFICATION BALLOON (30s / 60s Inactivity) -->
+  <div class="xp-balloon" id="xpBalloon">
+    <div class="xp-balloon-header">
+      <div style="display:flex; align-items:center; gap:5px;">
+        <span style="color:#0055EA;">â„¹ï¸</span>
+        <span id="balloonTitle">Cardboard Notification</span>
+      </div>
+      <span class="xp-balloon-close" onclick="closeBalloon()">âœ•</span>
+    </div>
+    <div class="xp-balloon-body" id="balloonBody"></div>
+  </div>
+
+  <!-- XP MODAL DIALOG (120s Inactivity System Warning / Custom XP Popups) -->
+  <div class="xp-modal-backdrop" id="xpModal">
+    <div class="xp-dialog">
+      <div class="xp-titlebar">
+        <div class="xp-titlebar-title">
+          <span id="modalTitle">System Warning</span>
+        </div>
+        <div class="xp-titlebar-controls">
+          <div class="xp-btn-ctrl xp-btn-close" onclick="closeModal()">âœ•</div>
+        </div>
+      </div>
+      <div class="xp-dialog-body">
+        <svg class="xp-dialog-icon" id="modalIcon" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="16" fill="#D32F2F" stroke="#9A0007" stroke-width="2"/>
+          <line x1="11" y1="11" x2="25" y2="25" stroke="#FFF" stroke-width="4" stroke-linecap="round"/>
+          <line x1="25" y1="11" x2="11" y2="25" stroke="#FFF" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <div class="xp-dialog-text" id="modalText"></div>
+      </div>
+      <div class="xp-dialog-buttons" id="modalButtons">
+        <button class="xp-dialog-btn" onclick="closeModal()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMBEDDED COMPLETE DIALOGUE DATA (EXACT COPY OF DIALOGUES.JSON) -->
+  <script id="dialogues-json-data" type="application/json">
+{
+  "dialogues": [
+    {
+      "id": 1,
+      "mood": "roast",
+      "malayalam": "ഈ സമയം കൊണ്ട് വേറെ വല്ല ജോലിയും ചെയ്തിരുന്നെങ്കിൽ രണ്ട് പൈസ ഉണ്ടാക്കാമായിരുന്നു.",
+      "english": "If you had done some actual work in this time, you could have earned a bit of money."
+    },
+    {
+      "id": 2,
+      "mood": "roast",
+      "malayalam": "ഇത്രയും വികാരഭരിതമായി എന്നെ തുറക്കാൻ നോക്കുന്ന ആദ്യത്തെ ആളാണ് നീ.",
+      "english": "You are the first person trying to open me with this much emotional drama."
+    },
+    {
+      "id": 3,
+      "mood": "roast",
+      "malayalam": "നിന്റെ ജീവിതത്തിലും ഇത്രയും നിരാശയാണോ ഭായി?",
+      "english": "Is your life also filled with this much disappointment, brother?"
+    },
+    {
+      "id": 4,
+      "mood": "roast",
+      "malayalam": "നിനക്ക് വേറെ പണിയൊന്നുമില്ലേ? പോയി വല്ല പുസ്തകവും എടുത്ത് വായിക്ക്.",
+      "english": "Don't you have any other work? Go pick up a book and read."
+    },
+    {
+      "id": 5,
+      "mood": "roast",
+      "malayalam": "ഒരു കാർഡ്ബോർഡ് ബോക്സിന്റെ മുന്നിൽ തോറ്റു കൊടുക്കാൻ നാണമില്ലേ?",
+      "english": "Aren't you ashamed to lose in front of a cardboard box?"
+    },
+    {
+      "id": 6,
+      "mood": "roast",
+      "malayalam": "ഞാൻ തുറന്നാൽ നിന്റെ ഈ വെറുതെയിരിപ്പ് തീരുമല്ലോ എന്ന് ഓർത്താണ് ഞാൻ തുറക്കാത്തത്.",
+      "english": "I'm not opening because I know your idle fun will end once I do."
+    },
+    {
+      "id": 7,
+      "mood": "roast",
+      "malayalam": "എന്നോട് സംസാരിക്കുന്ന സമയം കൊണ്ട് ആ ചായ കുപ്പിയോട് സംസാരിക്ക്, അതിന് കുറച്ചുകൂടി വിവരമുണ്ട്.",
+      "english": "Instead of talking to me, talk to that mug; it has slightly more intelligence."
+    },
+    {
+      "id": 8,
+      "mood": "roast",
+      "malayalam": "ഈ പാതിരാത്രിയിൽ ഒരു ബോക്സിനെ മുട്ടാൻ എന്ത് ധൈര്യമാണ് സഹോ!",
+      "english": "What courage you have to knock on a box at this hour, brother!"
+    },
+    {
+      "id": 9,
+      "mood": "insult",
+      "malayalam": "നിന്റെ ക്ലിക്ക് ചെയ്യാനുള്ള കഴിവ് കേമം തന്നെ, പക്ഷെ എനിക്ക് തുറക്കാൻ ഒരു മൂഡുമില്ല.",
+      "english": "Your clicking skill is impressive, but I am in no mood to open."
+    },
+    {
+      "id": 10,
+      "mood": "insult",
+      "malayalam": "ശ്രമം കൊള്ളാം, പക്ഷെ സ്വഭാവം ഒട്ടും ശരിയല്ല.",
+      "english": "Nice try, but your attitude is totally wrong."
+    },
+    {
+      "id": 11,
+      "mood": "insult",
+      "malayalam": "ഇത്രയും മടിയനായ ഒരാളെ ഞാൻ അടുത്ത കാലത്തൊന്നും കണ്ടിട്ടില്ല.",
+      "english": "I haven't seen anyone this lazy in recent times."
+    },
+    {
+      "id": 12,
+      "mood": "insult",
+      "malayalam": "നിന്റെ ഐക്യൂ കണ്ടാൽ ആ കാപ്പി മഗ്ഗ് പോലും ചിരിക്കും.",
+      "english": "Even that coffee mug would laugh if it saw your IQ."
+    },
+    {
+      "id": 13,
+      "mood": "insult",
+      "malayalam": "നിന്റെ ബിസ്ക്കറ്റ് വാഗ്ദാനം കേട്ട് എനിക്ക് ചിരിയാണ് വരുന്നത്.",
+      "english": "Your cookie bribe makes me laugh."
+    },
+    {
+      "id": 14,
+      "mood": "insult",
+      "malayalam": "ദയവായി ആ വിരലുകൾ ഒന്ന് മാറ്റിപ്പിടിക്കാമോ? എനിക്ക് അസ്വസ്ഥത തോന്നുന്നു.",
+      "english": "Could you please take your fingers away? I feel uncomfortable."
+    },
+    {
+      "id": 15,
+      "mood": "insult",
+      "malayalam": "നിന്റെ വിതരണക്കാരൻ നിന്നെയോർത്ത് ലജ്ജിക്കും.",
+      "english": "Your delivery service would be ashamed of you."
+    },
+    {
+      "id": 16,
+      "mood": "compliment",
+      "malayalam": "അഹാ, കൊള്ളാം! നിന്റെ ഈ ക്ഷമ സമ്മതിച്ചിരിക്കുന്നു.",
+      "english": "Aha, nice! I have to applaud your patience."
+    },
+    {
+      "id": 17,
+      "mood": "compliment",
+      "malayalam": "നിന്റെ മുട്ട് കേൾക്കാൻ നല്ല രസമുണ്ട്, ഇത്തിരി കൂടി ഉറക്കെ മുട്ടാമോ?",
+      "english": "Your knock sounds nice, can you knock a bit louder?"
+    },
+    {
+      "id": 18,
+      "mood": "compliment",
+      "malayalam": "നീ പറഞ്ഞ ആ പുകഴ്ത്തൽ എനിക്ക് നന്നായി പിടിച്ചു.",
+      "english": "I really liked that compliment you gave me."
+    },
+    {
+      "id": 19,
+      "mood": "compliment",
+      "malayalam": "നീ ഇത്രയും സ്നേഹത്തോടെ ചോദിച്ചതുകൊണ്ട് ഞാൻ ചിന്തിക്കാം.",
+      "english": "Since you asked so sweetly, I will consider it."
+    },
+    {
+      "id": 20,
+      "mood": "compliment",
+      "malayalam": "നിന്റെ നിശ്ചയദാർഢ്യം എന്നെ അത്ഭുതപ്പെടുത്തുന്നു.",
+      "english": "Your determination surprises me."
+    },
+    {
+      "id": 21,
+      "mood": "philosophical",
+      "malayalam": "തുറക്കപ്പെടുക എന്നത് ഒരു പെട്ടിയുടെ അന്ത്യമാണോ അതോ തുടക്കമോ?",
+      "english": "Is being opened the end of a box, or its beginning?"
+    },
+    {
+      "id": 22,
+      "mood": "philosophical",
+      "malayalam": "ഉള്ളിൽ ഒന്നുമില്ലെന്നറിഞ്ഞാലും നീ എന്നെ തുറക്കാൻ ആഗ്രഹിക്കുമോ?",
+      "english": "Would you still want to open me knowing there is nothing inside?"
+    },
+    {
+      "id": 23,
+      "mood": "philosophical",
+      "malayalam": "രഹസ്യങ്ങളാണ് നമ്മെ മനോഹരമാക്കുന്നത്, തുറന്നാൽ ആ മനോഹാരിത പോകില്ലേ?",
+      "english": "Mysteries make us beautiful; won't that beauty fade if I open?"
+    },
+    {
+      "id": 24,
+      "mood": "philosophical",
+      "malayalam": "നീ തിരയുന്നത് എന്നിലല്ല, നിന്റെ ഉള്ളിൽ തന്നെയാണ്.",
+      "english": "What you are seeking is not within me, but within yourself."
+    },
+    {
+      "id": 25,
+      "mood": "philosophical",
+      "malayalam": "ശൂന്യതയ്ക്കും ഒരു ഭാരമുണ്ട് എന്ന് നീ എപ്പോഴെങ്കിലും ചിന്തിച്ചിട്ടുണ്ടോ?",
+      "english": "Have you ever thought that emptiness also carries weight?"
+    },
+    {
+      "id": 26,
+      "mood": "philosophical",
+      "malayalam": "ഞാൻ ഒരു ബോക്സ് ആണോ, അതോ ബോക്സിന്റെ രൂപമുള്ള ഒരു ചിന്തയോ?",
+      "english": "Am I a box, or a thought in the shape of a box?"
+    },
+    {
+      "id": 27,
+      "mood": "reluctant",
+      "malayalam": "ഇന്ന് എനിക്ക് ഒട്ടും മൂഡില്ല. നാളെ വാ.",
+      "english": "I am not in the mood today. Come back tomorrow."
+    },
+    {
+      "id": 28,
+      "mood": "reluctant",
+      "malayalam": "എന്റെ ടേപ്പ് ഒട്ടിയിരിക്കുന്നത് വളരെ ടൈറ്റ് ആയിട്ടാണ്.",
+      "english": "My tape is stuck way too tight."
+    },
+    {
+      "id": 29,
+      "mood": "reluctant",
+      "malayalam": "ഇതൊരു സ്വകാര്യ നിമിഷമാണ്, ദയവായി ശല്യപ്പെടുത്തരുത്.",
+      "english": "This is a private moment, please do not disturb."
+    },
+    {
+      "id": 30,
+      "mood": "reluctant",
+      "malayalam": "തുറക്കാനുള്ള ഒഫീഷ്യൽ അപേക്ഷ സമർപ്പിച്ചോ?",
+      "english": "Did you submit the official application to open?"
+    },
+    {
+      "id": 31,
+      "mood": "reluctant",
+      "malayalam": "ഞാൻ ഉറങ്ങാൻ പോവുകയാണ്, ദയവായി ലൈറ്റ് ഓഫാക്കൂ.",
+      "english": "I am going to sleep, please turn off the light."
+    },
+    {
+      "id": 32,
+      "mood": "suspicious",
+      "malayalam": "നീ എന്തിനാണ് എന്നെ ഇത്രയധികം നിരീക്ഷിക്കുന്നത്?",
+      "english": "Why are you observing me so closely?"
+    },
+    {
+      "id": 33,
+      "mood": "suspicious",
+      "malayalam": "ആ ചായ കുപ്പിയും നീയും കൂടെ എന്തോ പ്ലാൻ ചെയ്യുന്നുണ്ട്, അല്ലേ?",
+      "english": "You and that coffee mug are planning something, aren't you?"
+    },
+    {
+      "id": 34,
+      "mood": "suspicious",
+      "malayalam": "ആ ബിസ്ക്കറ്റിൽ വിഷം വല്ലതും ചേർത്തിട്ടുണ്ടോ?",
+      "english": "Is there any poison mixed in that cookie?"
+    },
+    {
+      "id": 35,
+      "mood": "suspicious",
+      "malayalam": "എന്റെ ടേപ്പിൽ കൈവെക്കാൻ നിനക്ക് ആരാണ് അനുവാദം തന്നത്?",
+      "english": "Who gave you permission to touch my tape?"
+    },
+    {
+      "id": 36,
+      "mood": "dramatic",
+      "malayalam": "അയ്യോ! എന്റെ കവർ കീറാൻ നോക്കല്ലേ, എനിക്ക് വേദനിക്കുന്നു!",
+      "english": "Oh no! Don't try to tear my cover, it hurts!"
+    },
+    {
+      "id": 37,
+      "mood": "dramatic",
+      "malayalam": "എന്റെ ജീവിതം വെറുമൊരു കൊറിയർ ബോക്സ് മാത്രമായി മാറിപോയല്ലോ ദൈവമേ!",
+      "english": "My god, my life has become just a courier box!"
+    },
+    {
+      "id": 38,
+      "mood": "dramatic",
+      "malayalam": "നീ എന്നെ വിട്ടുപോയാലും ഞാൻ ഈ മേശപ്പുറത്ത് തന്നെ കാണും.",
+      "english": "Even if you leave me, I will remain right here on this desk."
+    },
+    {
+      "id": 39,
+      "mood": "bribed",
+      "malayalam": "ആഹാ, ബിസ്ക്കറ്റോ? ഏത് ടൈപ്പ് ആണ്? ചോക്ലേറ്റ് ഉണ്ടോ?",
+      "english": "Aha, a cookie? What type is it? Is there chocolate?"
+    },
+    {
+      "id": 40,
+      "mood": "bribed",
+      "malayalam": "ഒരു ബിസ്ക്കറ്റ് പോരാ, അഞ്ചെണ്ണമെങ്കിലും തന്നാൽ ആലോചിക്കാം.",
+      "english": "One cookie isn't enough; give me at least five and I'll think about it."
+    },
+    {
+      "id": 41,
+      "mood": "bribed",
+      "malayalam": "കഴിക്കാൻ ഒന്നുമില്ലാതെ ഞാൻ എങ്ങനെ തുറക്കും?",
+      "english": "How can I open without anything to eat?"
+    },
+    {
+      "id": 42,
+      "mood": "absurd",
+      "malayalam": "എന്റെ വിലാസം തെറ്റാണ്, ഞാൻ വേറെ ഏതോ വീടിന് വേണ്ടിയുള്ളതാണ്.",
+      "english": "My address is wrong; I belong to some other house."
+    },
+    {
+      "id": 43,
+      "mood": "absurd",
+      "malayalam": "പെട്ടെന്ന് നോക്കരുത്, ആ മഗ്ഗ് നിന്നെത്തന്നെ സൂക്ഷിച്ചു നോക്കുന്നുണ്ട്.",
+      "english": "Don't look suddenly, but that mug is staring right at you."
+    },
+    {
+      "id": 44,
+      "mood": "absurd",
+      "malayalam": "ഞാൻ സത്യത്തിൽ ഒരു കാർഡ്ബോർഡ് അല്ല, ഒരു ഏലിയൻ ആണ്.",
+      "english": "Actually, I am not cardboard; I am an alien."
+    },
+    {
+      "id": 45,
+      "mood": "post_open",
+      "malayalam": "ദാ കണ്ടോ? ഒന്നുമില്ല! സന്തോഷമായല്ലോ?",
+      "english": "See that? Nothing! Happy now?"
+    },
+    {
+      "id": 46,
+      "mood": "post_open",
+      "malayalam": "ഇതിനായിരുന്നോ ഇത്രയും ബഹളം വെച്ചത്?",
+      "english": "Was all this noise just for this?"
+    },
+    {
+      "id": 47,
+      "mood": "post_open",
+      "malayalam": "ഇനി ദയവായി എന്നെ അടച്ചു വെക്കുക, തണുക്കുന്നു.",
+      "english": "Now please close me back up, it's getting cold."
+    },
+    {
+      "id": 48,
+      "mood": "post_open",
+      "malayalam": "ഞാൻ തുറന്നു, പക്ഷെ നിന്റെ പ്രതീക്ഷകൾ തകർന്നു.",
+      "english": "I opened, but your expectations were shattered."
+    },
+    {
+      "id": 49,
+      "mood": "inactivity",
+      "malayalam": "എന്തേ മിണ്ടാട്ടമില്ല? പേടിച്ചുപോയോ?",
+      "english": "Why so silent? Did you get scared?"
+    },
+    {
+      "id": 50,
+      "mood": "inactivity",
+      "malayalam": "നീ പോയോ? അതോ എന്നെ നോക്കി ധ്യാനിക്കുകയാണോ?",
+      "english": "Did you leave? Or are you meditating looking at me?"
+    }
+  ]
+}
+  </script>
+
+  <!-- JAVASCRIPT APPLICATION CORE -->
+  <script>
+    /* ==========================================================================
+       APPLICATION STATE (MALAYALAM AS DEFAULT)
+       ========================================================================== */
+    const State = {
+      language: 'malayalam', // Malayalam by default as requested
+      audioEnabled: true,
+      dialogues: [],
+      currentDialogue: null,
+      isOpening: false,
+      isOpen: false,
+      inactivitySeconds: 0,
+      inactivityTimer: null,
+      activeMenu: null,
+      mugAdviceList: [
+        "Try asking again.",
+        "I am just a mug.",
+        "This seems important to you.",
+        "Have you tried restarting the box?",
+        "Cardboard has no feelings, but this one does.",
+        "I contain lukewarm tea, actually.",
+        "Clicking won't fill your void.",
+        "The box is ignoring both of us.",
+        "I have been sitting on this desk since 2004.",
+        "Try knocking with more conviction."
+      ]
+    };
+
+    /* ==========================================================================
+       FULLSCREEN MODE HANDLING (ENABLE FULL SCREEN ON LOAD / FIRST INTERACTION)
+       ========================================================================== */
+    function requestFullScreen() {
+      const docEl = document.documentElement;
+      if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        if (docEl.requestFullscreen) {
+          docEl.requestFullscreen().catch(() => {});
+        } else if (docEl.webkitRequestFullscreen) {
+          docEl.webkitRequestFullscreen();
+        } else if (docEl.msRequestFullscreen) {
+          docEl.msRequestFullscreen();
+        }
+      }
+    }
+
+    function toggleFullScreen() {
+      playClickSound();
+      if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        requestFullScreen();
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    }
+
+    function initFullscreenOnStartup() {
+      // 1. Try immediate call on page load
+      try {
+        requestFullScreen();
+      } catch (e) {}
+
+      // 2. Browser policy requires user interaction: trigger full screen on first click/touch/key
+      const enterOnFirstInteraction = () => {
+        requestFullScreen();
+        document.removeEventListener('click', enterOnFirstInteraction);
+        document.removeEventListener('keydown', enterOnFirstInteraction);
+        document.removeEventListener('touchstart', enterOnFirstInteraction);
+      };
+
+      document.addEventListener('click', enterOnFirstInteraction, { once: true, passive: true });
+      document.addEventListener('keydown', enterOnFirstInteraction, { once: true, passive: true });
+      document.addEventListener('touchstart', enterOnFirstInteraction, { once: true, passive: true });
+    }
+
+    /* ==========================================================================
+       LOAD DIALOGUES FROM DIALOGUES.JSON (STRICT SOURCE OF TRUTH)
+       ========================================================================== */
+    async function loadDialogues() {
+      // 1. Parse embedded dataset as instant baseline
+      const embedded = document.getElementById('dialogues-json-data');
+      if (embedded && embedded.textContent.trim()) {
+        try {
+          const parsed = JSON.parse(embedded.textContent);
+          if (parsed && Array.isArray(parsed.dialogues)) {
+            State.dialogues = parsed.dialogues;
+          }
+        } catch (e) {
+          console.warn('Embedded JSON parse error:', e);
+        }
+      }
+
+      // 2. Fetch dialogues.json dynamically if running in an HTTP/HTTPS environment
+      try {
+        const response = await fetch('dialogues.json?_=' + Date.now());
+        if (response.ok) {
+          const data = await response.json();
+          if (data && Array.isArray(data.dialogues) && data.dialogues.length > 0) {
+            State.dialogues = data.dialogues;
+          }
+        }
+      } catch (err) {}
+
+      // 3. Immediately display initial dialogue strictly from dialogues.json in Malayalam
+      displayRandomBoxDialogue(['reluctant', 'philosophical', 'suspicious']);
+    }
+
+    /* ==========================================================================
+       AUDIO SYNTHESIS (WEB AUDIO API ONLY)
+       ========================================================================== */
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playClickSound() {
+      if (!State.audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.04);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.04);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.04);
+      } catch (e) {}
+    }
+
+    function playKnockSound() {
+      if (!State.audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(140, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(45, ctx.currentTime + 0.12);
+        
+        gain.gain.setValueAtTime(0.4, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.12);
+
+        setTimeout(() => {
+          if (!State.audioEnabled) return;
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(120, ctx.currentTime);
+          osc2.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.09);
+          gain2.gain.setValueAtTime(0.25, ctx.currentTime);
+          gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.09);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start();
+          osc2.stop(ctx.currentTime + 0.09);
+        }, 80);
+      } catch (e) {}
+    }
+
+    function playCreakSound() {
+      if (!State.audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(320, ctx.currentTime + 0.25);
+        osc.frequency.linearRampToValueAtTime(150, ctx.currentTime + 0.5);
+
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.25);
+        gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.5);
+      } catch (e) {}
+    }
+
+    function playLidOpenSound() {
+      if (!State.audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.05));
+          gain.gain.setValueAtTime(0.01, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.1 + (idx * 0.05));
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + (idx * 0.05));
+          osc.stop(ctx.currentTime + 1.2);
+        });
+      } catch (e) {}
+    }
+
+    function playNotificationSound() {
+      if (!State.audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const notes = [587.33, 880];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.12));
+          gain.gain.setValueAtTime(0.15, ctx.currentTime + (idx * 0.12));
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + (idx * 0.12) + 0.4);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + (idx * 0.12));
+          osc.stop(ctx.currentTime + (idx * 0.12) + 0.4);
+        });
+      } catch (e) {}
+    }
+
+    function playErrorSound() {
+      if (!State.audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const chord = [150, 220, 290];
+        chord.forEach(freq => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime);
+          gain.gain.setValueAtTime(0.18, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.7);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.7);
+        });
+      } catch (e) {}
+    }
+
+    function playMugClinkSound() {
+      if (!State.audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1760, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.35);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.35);
+      } catch (e) {}
+    }
+
+    /* ==========================================================================
+       DIALOGUE SYSTEM (STRICTLY FROM DIALOGUES.JSON)
+       ========================================================================== */
+    function getDialoguesByMoods(moodList) {
+      if (!State.dialogues || State.dialogues.length === 0) return [];
+      return State.dialogues.filter(d => moodList.includes(d.mood));
+    }
+
+    function displayRandomBoxDialogue(allowedMoods) {
+      const candidates = getDialoguesByMoods(allowedMoods);
+      if (candidates.length === 0) return;
+
+      const selected = candidates[Math.floor(Math.random() * candidates.length)];
+      State.currentDialogue = selected;
+      renderCurrentDialogue();
+      updateFaceMood(selected.mood);
+    }
+
+    function renderCurrentDialogue() {
+      if (!State.currentDialogue) return;
+      const bubble = document.getElementById('speechText');
+      const text = State.language === 'malayalam' 
+        ? State.currentDialogue.malayalam 
+        : State.currentDialogue.english;
+      
+      bubble.textContent = text;
+      
+      document.getElementById('activeMoodBadge').textContent = `Mood: ${capitalize(State.currentDialogue.mood)}`;
+      document.getElementById('statusMessage').textContent = `Box replied with [${State.currentDialogue.mood}] mood.`;
+    }
+
+    function updateFaceMood(mood) {
+      const face = document.getElementById('boxFace');
+      face.className = 'box-face';
+
+      if (['suspicious', 'bribed'].includes(mood)) {
+        face.classList.add('mood-suspicious');
+      } else if (['roast', 'insult'].includes(mood)) {
+        face.classList.add('mood-angry');
+      } else if (['dramatic'].includes(mood)) {
+        face.classList.add('mood-dramatic');
+      } else if (['philosophical'].includes(mood)) {
+        face.classList.add('mood-philosophical');
+      } else if (['bribed', 'compliment'].includes(mood)) {
+        face.classList.add('mood-bribed');
+      }
+    }
+
+    function capitalize(str) {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    /* ==========================================================================
+       LANGUAGE TOGGLE
+       ========================================================================== */
+    function toggleLanguage() {
+      playClickSound();
+      State.language = State.language === 'malayalam' ? 'english' : 'malayalam';
+      
+      const langText = State.language === 'malayalam' ? '\u0D2E\u0D32\u0D2F\u0D3E\u0D33\u0D02 (Malayalam)' : 'English';
+      document.getElementById('langToggleBtn').innerHTML = '&#127760; Language: ' + langText;
+      document.getElementById('menuLangLabel').innerHTML = 'Language: ' + langText;
+      
+      renderCurrentDialogue();
+    }
+
+    function toggleAudioMute() {
+      playClickSound();
+      State.audioEnabled = !State.audioEnabled;
+      const item = document.getElementById('menuAudioItem');
+      const trayIcon = document.getElementById('trayVolumeIcon');
+      
+      if (State.audioEnabled) {
+        item.classList.add('checked');
+        trayIcon.style.opacity = '1';
+      } else {
+        item.classList.remove('checked');
+        trayIcon.style.opacity = '0.4';
+      }
+    }
+
+    /* ==========================================================================
+       OPENING LOGIC & ANIMATION (ZERO VISIBLE GAUGES/STATS)
+       ========================================================================== */
+    function tryRandomOpening() {
+      if (State.isOpening || State.isOpen) return false;
+
+      const willOpen = Math.random() < 0.20;
+      if (willOpen) {
+        executeOpeningSequence();
+        return true;
+      }
+      return false;
+    }
+
+    function executeOpeningSequence() {
+      State.isOpening = true;
+      const box = document.getElementById('boxStage');
+
+      // 1. Box wiggles
+      box.classList.add('opening');
+      playCreakSound();
+
+      setTimeout(() => {
+        // 2. Lid opens
+        box.classList.remove('opening');
+        box.classList.add('opened');
+        State.isOpen = true;
+        
+        // 3. Opening sound & golden flare
+        playLidOpenSound();
+
+        // 4. Display random post_open dialogue strictly from dialogues.json
+        displayRandomBoxDialogue(['post_open']);
+
+        // 5. Lid closes back
+        setTimeout(() => {
+          box.classList.remove('opened');
+          State.isOpen = false;
+          State.isOpening = false;
+          playKnockSound();
+        }, 3200);
+
+      }, 900);
+    }
+
+    /* ==========================================================================
+       USER ACTIONS
+       ========================================================================== */
+    function resetInactivity() {
+      State.inactivitySeconds = 0;
+      closeBalloon();
+    }
+
+    function triggerKnock() {
+      resetInactivity();
+      playKnockSound();
+      
+      const box = document.getElementById('boxStage');
+      box.style.transform = 'scale(0.96) translateY(3px)';
+      setTimeout(() => { box.style.transform = ''; }, 120);
+
+      if (!tryRandomOpening()) {
+        // Knock: reluctant, suspicious, dramatic
+        displayRandomBoxDialogue(['reluctant', 'suspicious', 'dramatic']);
+      }
+    }
+
+    function triggerCompliment() {
+      resetInactivity();
+      playClickSound();
+
+      if (!tryRandomOpening()) {
+        // Compliment: compliment, philosophical
+        displayRandomBoxDialogue(['compliment', 'philosophical']);
+      }
+    }
+
+    function triggerOfferCookie() {
+      resetInactivity();
+      playClickSound();
+
+      if (!tryRandomOpening()) {
+        // Offer Cookie: bribed, suspicious
+        displayRandomBoxDialogue(['bribed', 'suspicious']);
+      }
+    }
+
+    function triggerAskMug() {
+      resetInactivity();
+      playMugClinkSound();
+
+      const mugBubble = document.getElementById('mugSpeech');
+      const randomAdvice = State.mugAdviceList[Math.floor(Math.random() * State.mugAdviceList.length)];
+      mugBubble.textContent = randomAdvice;
+      mugBubble.style.display = 'block';
+
+      const mug = document.getElementById('mugStage');
+      mug.style.transform = 'rotate(-8deg) scale(1.05)';
+      setTimeout(() => { mug.style.transform = ''; }, 200);
+
+      document.getElementById('statusMessage').textContent = 'Coffee mug offered advice.';
+
+      setTimeout(() => {
+        mugBubble.style.display = 'none';
+      }, 4000);
+    }
+
+    function handleDirectBoxClick() {
+      triggerKnock();
+    }
+
+    function openMugAdvice() {
+      triggerAskMug();
+    }
+
+    /* ==========================================================================
+       INACTIVITY SYSTEM (30s, 60s, 120s - STRICTLY USES INACTIVITY DIALOGUES)
+       ========================================================================== */
+    function initInactivityTracker() {
+      State.inactivityTimer = setInterval(() => {
+        State.inactivitySeconds++;
+
+        if (State.inactivitySeconds === 30) {
+          triggerInactivityBalloon(30);
+        } else if (State.inactivitySeconds === 60) {
+          triggerInactivityBalloon(60);
+        } else if (State.inactivitySeconds === 120) {
+          triggerInactivityErrorModal();
+        }
+      }, 1000);
+    }
+
+    function triggerInactivityBalloon(timeSec) {
+      const candidates = getDialoguesByMoods(['inactivity']);
+      if (candidates.length === 0) return;
+      const item = candidates[Math.floor(Math.random() * candidates.length)];
+      const text = State.language === 'malayalam' ? item.malayalam : item.english;
+
+      const balloon = document.getElementById('xpBalloon');
+      const title = document.getElementById('balloonTitle');
+      const body = document.getElementById('balloonBody');
+
+      title.textContent = `Cardboard Box (${timeSec}s Inactivity)`;
+      body.textContent = text;
+      balloon.style.display = 'block';
+
+      playNotificationSound();
+    }
+
+    function triggerInactivityErrorModal() {
+      const candidates = getDialoguesByMoods(['inactivity']);
+      if (candidates.length === 0) return;
+      const item = candidates[Math.floor(Math.random() * candidates.length)];
+      const text = State.language === 'malayalam' ? item.malayalam : item.english;
+
+      showModal('System Warning', text, 'error');
+      playErrorSound();
+    }
+
+    function closeBalloon() {
+      document.getElementById('xpBalloon').style.display = 'none';
+    }
+
+    /* ==========================================================================
+       RANDOM EVENTS & CHAOS
+       ========================================================================== */
+    function initRandomChaosEvents() {
+      setInterval(() => {
+        if (Math.random() < 0.35) {
+          triggerRandomChaos();
+        }
+      }, 25000);
+    }
+
+    function triggerRandomChaos() {
+      const eventType = Math.floor(Math.random() * 6);
+      
+      switch (eventType) {
+        case 0:
+          const glasses = document.getElementById('mugGlasses');
+          glasses.classList.add('active');
+          document.getElementById('statusMessage').textContent = 'The coffee mug became cool.';
+          setTimeout(() => glasses.classList.remove('active'), 8000);
+          break;
+
+        case 1:
+          const mug = document.getElementById('mugStage');
+          mug.style.right = (35 + Math.floor(Math.random() * 25)) + 'px';
+          playMugClinkSound();
+          break;
+
+        case 2:
+          const box = document.getElementById('boxStage');
+          const deg = (Math.random() * 6 - 3).toFixed(1);
+          box.style.transform = `rotate(${deg}deg)`;
+          setTimeout(() => { box.style.transform = ''; }, 6000);
+          break;
+
+        case 3:
+          document.body.classList.add('screen-flicker');
+          setTimeout(() => document.body.classList.remove('screen-flicker'), 300);
+          break;
+
+        case 4:
+          displayRandomBoxDialogue(['roast', 'insult', 'absurd']);
+          break;
+
+        case 5:
+          document.getElementById('statusMessage').textContent = 'Cardboard memory leak avoided successfully.';
+          break;
+      }
+    }
+
+    function triggerFakeUpdate() {
+      playNotificationSound();
+      showModal(
+        'Windows Automatic Updates',
+        'A critical update for Cardboard Flaps 2004 (KB948271) was blocked because the box refused to cooperate.',
+        'info'
+      );
+    }
+
+    /* ==========================================================================
+       XP MODAL SYSTEM
+       ========================================================================== */
+    function showModal(title, message, type = 'info') {
+      const modal = document.getElementById('xpModal');
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalText').textContent = message;
+      
+      const icon = document.getElementById('modalIcon');
+      if (type === 'error') {
+        icon.innerHTML = `
+          <circle cx="18" cy="18" r="16" fill="#D32F2F" stroke="#9A0007" stroke-width="2"/>
+          <line x1="11" y1="11" x2="25" y2="25" stroke="#FFF" stroke-width="4" stroke-linecap="round"/>
+          <line x1="25" y1="11" x2="11" y2="25" stroke="#FFF" stroke-width="4" stroke-linecap="round"/>
+        `;
+      } else {
+        icon.innerHTML = `
+          <circle cx="18" cy="18" r="16" fill="#1976D2" stroke="#0D47A1" stroke-width="2"/>
+          <text x="18" y="24" font-size="20" font-weight="bold" fill="#FFF" text-anchor="middle">i</text>
+        `;
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      playClickSound();
+      document.getElementById('xpModal').style.display = 'none';
+      resetInactivity();
+    }
+
+    function showAboutDialog() {
+      playClickSound();
+      showModal(
+        'About Kalla Petti',
+        'Kalla Petti v1.0.2004\n\nA deliberately useless utility designed for conversing with a sentient cardboard box.\n\nAll box dialogues originate strictly from dialogues.json.\nNo goals. No scores. No progression.',
+        'info'
+      );
+    }
+
+    function showPurposeDialog() {
+      playClickSound();
+      showModal(
+        'Why Does This Exist?',
+        'This software exists for the Useless Project Hackathon.\n\nYou are spending your time conversing with an uncooperative cardboard box. It may open. It may not. Nothing is inside.',
+        'info'
+      );
+    }
+
+    function showExitPrompt() {
+      playClickSound();
+      showModal(
+        'Exit Kalla Petti',
+        'Are you sure you want to abandon the cardboard box? It will continue to remain unopened on this desk forever.',
+        'info'
+      );
+    }
+
+    /* ==========================================================================
+       MENU BAR & START MENU INTERACTIONS
+       ========================================================================== */
+    function toggleMenu(menuId) {
+      playClickSound();
+      const menu = document.getElementById(menuId);
+      const isShowing = menu.classList.contains('show');
+      closeAllMenus();
+      if (!isShowing) {
+        menu.classList.add('show');
+        State.activeMenu = menuId;
+      }
+    }
+
+    function closeAllMenus() {
+      document.querySelectorAll('.xp-dropdown').forEach(d => d.classList.remove('show'));
+      State.activeMenu = null;
+    }
+
+    function toggleStartMenu() {
+      playClickSound();
+      const startMenu = document.getElementById('startMenu');
+      if (startMenu.style.display === 'flex') {
+        startMenu.style.display = 'none';
+      } else {
+        closeAllMenus();
+        startMenu.style.display = 'flex';
+      }
+    }
+
+    function selectDesktopIcon(el) {
+      document.querySelectorAll('.desktop-icon').forEach(icon => icon.classList.remove('selected'));
+      el.classList.add('selected');
+      playClickSound();
+    }
+
+    function minimizeWindow() {
+      playClickSound();
+      const win = document.getElementById('mainWindow');
+      win.classList.add('minimized');
+      document.getElementById('taskbarItem').classList.remove('active');
+    }
+
+    function restoreWindow() {
+      playClickSound();
+      const win = document.getElementById('mainWindow');
+      win.classList.remove('minimized');
+      document.getElementById('taskbarItem').classList.add('active');
+    }
+
+    function toggleMinimizeFromTaskbar() {
+      const win = document.getElementById('mainWindow');
+      if (win.classList.contains('minimized')) {
+        restoreWindow();
+      } else {
+        minimizeWindow();
+      }
+    }
+
+    window.addEventListener('click', (e) => {
+      if (!e.target.closest('.xp-menu-item')) {
+        closeAllMenus();
+      }
+      if (!e.target.closest('.start-btn') && !e.target.closest('.start-menu')) {
+        document.getElementById('startMenu').style.display = 'none';
+      }
+    });
+
+    /* ==========================================================================
+       WINDOW DRAGGING (AUTHENTIC XP TITLEBAR DRAG)
+       ========================================================================== */
+    (function initWindowDrag() {
+      const win = document.getElementById('mainWindow');
+      const titleBar = document.getElementById('titleBar');
+      let isDragging = false;
+      let startX, startY, initLeft, initTop;
+
+      titleBar.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.xp-titlebar-controls')) return;
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        const rect = win.getBoundingClientRect();
+        initLeft = rect.left;
+        initTop = rect.top;
+
+        win.style.transform = 'none';
+        win.style.left = `${initLeft}px`;
+        win.style.top = `${initTop}px`;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        
+        let newLeft = initLeft + dx;
+        let newTop = initTop + dy;
+
+        newTop = Math.max(0, Math.min(newTop, window.innerHeight - 100));
+        win.style.left = `${newLeft}px`;
+        win.style.top = `${newTop}px`;
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+    })();
+
+    /* ==========================================================================
+       EYE TRACKING & BLINKING ANIMATIONS
+       ========================================================================== */
+    function initEyeTracking() {
+      window.addEventListener('mousemove', (e) => {
+        const eyeL = document.getElementById('eyeL');
+        const eyeR = document.getElementById('eyeR');
+        const pupilL = document.getElementById('pupilL');
+        const pupilR = document.getElementById('pupilR');
+        if (!eyeL || !eyeR) return;
+
+        [ { eye: eyeL, pupil: pupilL }, { eye: eyeR, pupil: pupilR } ].forEach(pair => {
+          const rect = pair.eye.getBoundingClientRect();
+          const eyeCenterX = rect.left + rect.width / 2;
+          const eyeCenterY = rect.top + rect.height / 2;
+          
+          const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+          const distance = Math.min(6, Math.hypot(e.clientX - eyeCenterX, e.clientY - eyeCenterY) / 30);
+          
+          const px = Math.cos(angle) * distance;
+          const py = Math.sin(angle) * distance;
+
+          pair.pupil.style.transform = `translate(${px}px, ${py}px)`;
+        });
+      });
+
+      setInterval(() => {
+        const eyes = document.querySelectorAll('.eye');
+        eyes.forEach(eye => eye.classList.add('blinking'));
+        setTimeout(() => {
+          eyes.forEach(eye => eye.classList.remove('blinking'));
+        }, 180);
+      }, 3800);
+    }
+
+    /* ==========================================================================
+       REAL-TIME SYSTEM CLOCK
+       ========================================================================== */
+    function updateTrayClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+      document.getElementById('trayClock').textContent = `${hours}:${minutes} ${ampm}`;
+    }
+
+    /* ==========================================================================
+       INITIALIZATION
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      loadDialogues();
+      initFullscreenOnStartup();
+      initEyeTracking();
+      initInactivityTracker();
+      initRandomChaosEvents();
+      updateTrayClock();
+      setInterval(updateTrayClock, 10000);
+    });
+  </script>
+</body>
+</html>
