@@ -2,47 +2,48 @@
 
 
 
-# [Project Name] 🎯
+# [Kalla Petti] 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: [HackSmiths]
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: [Adwaith Manoj] - [ASIET]
+- Member 2: [Ardra K] - [ASIET]
 
 ### Project Description
-[2-3 lines about what your project does]
+Kalla Petti is a fun and useless desktop-style web application where users interact with a mysterious cardboard box and a coffee mug. The box responds with random dialogues, reactions, and absurd behavior, creating a humorous and unpredictable experience.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+People are spending too much time opening useful applications that actually help them get work done. There is no dedicated software for having meaningless conversations with a stubborn cardboard box.
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+Kalla Petti solves this non-existent problem by providing a realistic Windows XP-style application where users can talk to an uncooperative cardboard box that may or may not respond. Nothing productive happens, and that's the whole point.
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+HTML
+CSS
+JavaScript
+SVG Graphics
+Browser Local Storage
 
 For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+Computer/Laptop
+Keyboard
+Mouse
+Web Browser (Chrome, Edge, Firefox, etc.)
 
 ### Implementation
 For Software:
-# Installation
-[commands]
-
+Installation:
+git clone <repository-link>
+cd kalla-petti
 # Run
-[commands]
+Open index.html in a web browser
 
 ### Project Documentation
 For Software:
