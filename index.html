@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ml">
 <head>
   <meta charset="UTF-8">
@@ -107,7 +107,18 @@
       left: 50%;
       transform: translateX(-50%);
       width: 680px;
-      max-width: 95vw;
+      height: 560px;
+      min-width: 520px;
+      min-height: 430px;
+      max-width: calc(100vw - 16px);
+      max-height: calc(100vh - 46px);
+      --scene-scale: 1;
+      --bubble-pop-scale: 0.85;
+      --speech-top: 15px;
+      --mug-bottom: 25px;
+      --mug-right: 45px;
+      --mug-speech-bottom: 85px;
+      --mug-speech-right: 15px;
       background: #ECE9D8;
       border: 3px solid #0055EA;
       border-top: 3px solid #0055EA;
@@ -117,6 +128,7 @@
       flex-direction: column;
       z-index: 10;
       transition: transform 0.05s ease;
+      overflow: hidden;
     }
 
     .xp-window.minimized {
@@ -298,6 +310,8 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      flex: 1;
+      min-height: 0;
     }
 
     /* Inner Display Panel (Beveled Inset Viewport) */
@@ -306,7 +320,9 @@
       border: 2px solid;
       border-color: #7F9DB9 #D4D0C8 #D4D0C8 #7F9DB9;
       border-radius: 2px;
-      height: 330px;
+      height: auto;
+      min-height: 260px;
+      flex: 1;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -335,7 +351,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 75px;
+      height: clamp(75px, 18%, 130px);
       background: linear-gradient(to bottom, #BCA488 0%, #8A6E50 40%, #6E5336 100%);
       border-top: 3px solid #D6C2A5;
       box-shadow: inset 0 3px 5px rgba(0,0,0,0.25);
@@ -344,9 +360,10 @@
     /* Dialogue Speech Bubble */
     .speech-bubble-container {
       position: absolute;
-      top: 15px;
+      top: var(--speech-top);
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) scale(var(--scene-scale));
+      transform-origin: top center;
       width: 86%;
       max-width: 520px;
       z-index: 20;
@@ -355,8 +372,8 @@
     }
 
     @keyframes bubblePop {
-      0% { transform: translateX(-50%) scale(0.85); opacity: 0; }
-      100% { transform: translateX(-50%) scale(1); opacity: 1; }
+      0% { transform: translateX(-50%) scale(var(--bubble-pop-scale)); opacity: 0; }
+      100% { transform: translateX(-50%) scale(var(--scene-scale)); opacity: 1; }
     }
 
     .speech-bubble {
@@ -415,6 +432,7 @@
       cursor: pointer;
       transform-origin: bottom center;
       transition: transform 0.15s ease-out;
+      zoom: var(--scene-scale);
     }
 
     .box-stage:hover .box-body {
@@ -730,13 +748,14 @@
        ========================================================================== */
     .mug-stage {
       position: absolute;
-      bottom: 25px;
-      right: 45px;
+      bottom: var(--mug-bottom);
+      right: var(--mug-right);
       width: 65px;
       height: 70px;
       z-index: 12;
       cursor: pointer;
       transition: transform 0.3s ease, right 0.4s ease;
+      zoom: var(--scene-scale);
     }
 
     .mug-shadow {
@@ -834,8 +853,8 @@
     /* Mug Speech Bubble */
     .mug-speech-bubble {
       position: absolute;
-      bottom: 85px;
-      right: 15px;
+      bottom: var(--mug-speech-bottom);
+      right: var(--mug-speech-right);
       background: #FFFFFF;
       border: 1px solid #716F64;
       border-radius: 4px;
@@ -847,6 +866,7 @@
       z-index: 25;
       display: none;
       animation: bubblePop 0.2s ease-out;
+      zoom: var(--scene-scale);
     }
 
     .mug-speech-bubble::after {
@@ -918,6 +938,40 @@
       gap: 4px;
       height: 22px;
       align-items: center;
+      flex-shrink: 0;
+    }
+
+    .xp-resize-handle {
+      position: absolute;
+      z-index: 40;
+    }
+
+    .xp-resize-handle.right {
+      top: 30px;
+      right: 0;
+      width: 7px;
+      height: calc(100% - 38px);
+      cursor: ew-resize;
+    }
+
+    .xp-resize-handle.bottom {
+      left: 0;
+      bottom: 0;
+      width: calc(100% - 18px);
+      height: 7px;
+      cursor: ns-resize;
+    }
+
+    .xp-resize-handle.corner {
+      right: 0;
+      bottom: 0;
+      width: 18px;
+      height: 18px;
+      cursor: nwse-resize;
+      background:
+        linear-gradient(135deg, transparent 0 50%, rgba(255,255,255,0.75) 50% 56%, transparent 56%),
+        linear-gradient(135deg, transparent 0 64%, rgba(145,155,156,0.9) 64% 70%, transparent 70%),
+        linear-gradient(135deg, transparent 0 78%, rgba(145,155,156,0.9) 78% 84%, transparent 84%);
     }
 
     .status-panel {
@@ -1506,6 +1560,10 @@
         <div class="status-panel status-info" id="statusObject">Subject: Cardboard</div>
         <div class="status-panel status-mode">XP Luna</div>
       </div>
+
+      <div class="xp-resize-handle right" data-resize-direction="right" title="Resize"></div>
+      <div class="xp-resize-handle bottom" data-resize-direction="bottom" title="Resize"></div>
+      <div class="xp-resize-handle corner" data-resize-direction="corner" title="Resize"></div>
     </div>
   </div>
 
@@ -1937,6 +1995,7 @@
       inactivitySeconds: 0,
       inactivityTimer: null,
       activeMenu: null,
+      mugRightBase: 45,
       mugAdviceList: [
         "Try asking again.",
         "I am just a mug.",
@@ -2475,8 +2534,8 @@
           break;
 
         case 1:
-          const mug = document.getElementById('mugStage');
-          mug.style.right = (35 + Math.floor(Math.random() * 25)) + 'px';
+          State.mugRightBase = 35 + Math.floor(Math.random() * 25);
+          updateSceneScale();
           playMugClinkSound();
           break;
 
@@ -2680,6 +2739,101 @@
     })();
 
     /* ==========================================================================
+       WINDOW RESIZING (XP EDGE + CORNER DRAG)
+       ========================================================================== */
+    function updateSceneScale() {
+      const win = document.getElementById('mainWindow');
+      const viewport = document.getElementById('viewport');
+      if (!win || !viewport) return;
+
+      const rect = viewport.getBoundingClientRect();
+      const widthScale = rect.width / 656;
+      const heightScale = rect.height / 330;
+      const nextScale = Math.max(0.82, Math.min(1.7, Math.min(widthScale, heightScale)));
+      win.style.setProperty('--scene-scale', nextScale.toFixed(3));
+      win.style.setProperty('--bubble-pop-scale', (nextScale * 0.85).toFixed(3));
+      win.style.setProperty('--speech-top', `${Math.round(15 * nextScale)}px`);
+      win.style.setProperty('--mug-bottom', `${Math.round(25 * nextScale)}px`);
+      win.style.setProperty('--mug-right', `${Math.round(State.mugRightBase * nextScale)}px`);
+      win.style.setProperty('--mug-speech-bottom', `${Math.round(85 * nextScale)}px`);
+      win.style.setProperty('--mug-speech-right', `${Math.round(15 * nextScale)}px`);
+    }
+
+    (function initWindowResize() {
+      const win = document.getElementById('mainWindow');
+      const handles = document.querySelectorAll('.xp-resize-handle');
+      let isResizing = false;
+      let direction = '';
+      let startX = 0;
+      let startY = 0;
+      let initWidth = 0;
+      let initHeight = 0;
+      let initLeft = 0;
+      let initTop = 0;
+
+      const getSizeLimit = (prop, fallback) => {
+        const value = parseFloat(getComputedStyle(win)[prop]);
+        return Number.isFinite(value) ? value : fallback;
+      };
+
+      handles.forEach((handle) => {
+        handle.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const rect = win.getBoundingClientRect();
+          isResizing = true;
+          direction = handle.dataset.resizeDirection;
+          startX = e.clientX;
+          startY = e.clientY;
+          initWidth = rect.width;
+          initHeight = rect.height;
+          initLeft = rect.left;
+          initTop = rect.top;
+
+          win.style.transform = 'none';
+          win.style.left = `${initLeft}px`;
+          win.style.top = `${initTop}px`;
+          document.body.style.cursor = getComputedStyle(handle).cursor;
+        });
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+
+        const minWidth = getSizeLimit('minWidth', 520);
+        const minHeight = getSizeLimit('minHeight', 430);
+        const maxWidth = Math.max(minWidth, window.innerWidth - initLeft - 8);
+        const maxHeight = Math.max(minHeight, window.innerHeight - initTop - 38);
+        let nextWidth = initWidth;
+        let nextHeight = initHeight;
+
+        if (direction === 'right' || direction === 'corner') {
+          nextWidth = Math.max(minWidth, Math.min(maxWidth, initWidth + e.clientX - startX));
+        }
+        if (direction === 'bottom' || direction === 'corner') {
+          nextHeight = Math.max(minHeight, Math.min(maxHeight, initHeight + e.clientY - startY));
+        }
+
+        win.style.width = `${nextWidth}px`;
+        win.style.height = `${nextHeight}px`;
+        updateSceneScale();
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isResizing) return;
+        isResizing = false;
+        direction = '';
+        document.body.style.cursor = '';
+        updateSceneScale();
+      });
+
+      if (window.ResizeObserver) {
+        new ResizeObserver(updateSceneScale).observe(win);
+      }
+    })();
+
+    /* ==========================================================================
        EYE TRACKING & BLINKING ANIMATIONS
        ========================================================================== */
     function initEyeTracking() {
@@ -2736,6 +2890,7 @@
       initInactivityTracker();
       initRandomChaosEvents();
       updateTrayClock();
+      updateSceneScale();
       setInterval(updateTrayClock, 10000);
     });
   </script>
