@@ -49,14 +49,17 @@ Open index.html in a web browser
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+<img width="1905" height="952" alt="Screenshot 2026-09-12 at 10-08-56 Kalla Petti exe" src="https://github.com/user-attachments/assets/bd3d9f67-9eb3-43b3-84b0-0e2e86ea2ad4" />
+The Kalla Petti box starts a conversation and responds to the user with a random message.
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+
+<img width="1692" height="872" alt="Screenshot 2026-09-12 at 10-10-24 Kalla Petti exe" src="https://github.com/user-attachments/assets/fb09e25a-bc04-4651-ae98-d24a0e18597e" />
+The box and mug interact with the user, showing different moods and humorous reactions.
+
+
+<img width="1920" height="955" alt="Screenshot 2026-09-12 at 10-10-45 Kalla Petti exe" src="https://github.com/user-attachments/assets/4259b9fe-4c79-482b-8f5e-e5f40ee257a8" />
+After repeated interactions, the box opens and reveals only darkness inside, staying true to the project's pointless nature.
 
 # Diagrams
 ![Workflow](Add your workflow/architecture diagram here)
