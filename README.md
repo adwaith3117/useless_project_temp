@@ -61,40 +61,11 @@ The box and mug interact with the user, showing different moods and humorous rea
 <img width="1920" height="955" alt="Screenshot 2026-09-12 at 10-10-45 Kalla Petti exe" src="https://github.com/user-attachments/assets/4259b9fe-4c79-482b-8f5e-e5f40ee257a8" />
 After repeated interactions, the box opens and reveals only darkness inside, staying true to the project's pointless nature.
 
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
-
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ### Project Demo
 # Video
 https://drive.google.com/file/d/1bGwjNgTii1FOb2dFUr-oAbCZD5aiCGBG/view?usp=drive_link
 
-# Additional Demos
-[Add any extra demo materials/links]
-
-## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
