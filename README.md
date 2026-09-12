@@ -3,7 +3,7 @@
 
 
 # [Kalla Petti] 🎯
-
+App URL:https://adwaith3117.github.io/useless_project_temp/
 
 ## Basic Details
 ### Team Name: [HackSmiths]
